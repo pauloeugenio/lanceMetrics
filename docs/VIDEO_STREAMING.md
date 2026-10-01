@@ -121,3 +121,7 @@ Run `.venv/bin/python -m pytest backend/tests -q`, `npm run build --prefix front
 The implementation uses portable Python sockets/asyncio and FFmpeg. Native macOS and real two-machine 5G/6G acceptance require testing in those environments; localhost validation does not establish WAN performance or clock accuracy.
 
 References: [FFmpeg formats](https://ffmpeg.org/ffmpeg-formats.html), [FFmpeg protocols](https://ffmpeg.org/ffmpeg-protocols.html), [RTP RFC3550](https://www.rfc-editor.org/rfc/rfc3550).
+
+## Excluir vídeos do dataset
+
+A última coluna da biblioteca oferece uma lixeira. Os checkboxes e **Excluir selecionados** removem um lote após confirmação. Arquivos excluídos liberam espaço e saem da fila; metadata e resultados históricos dos experimentos permanecem preservados. Vídeos em experimentos ativos ou em análise não podem ser excluídos. Um lote com ID inexistente ou vídeo protegido é rejeitado inteiro antes de remover arquivos. APIs autenticadas: `DELETE /api/video/library/{id}` e `POST /api/video/library/delete`, body `{"ids":["UUID"]}` (1–100 IDs).

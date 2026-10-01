@@ -3,14 +3,17 @@ import asyncio,json,secrets,shutil
 from uuid import UUID
 from fastapi import APIRouter,HTTPException,Request,WebSocket,WebSocketDisconnect
 from fastapi.responses import Response,FileResponse
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 from .video_schemas import VideoConfig,ReceiverConfig,AnalysisConfig,IncomingSession
-from .services.video_library import upload,analyze,MAX_UPLOAD_BYTES,MAX_LIBRARY_BYTES
+from .services.video_library import upload,analyze,delete_videos,LIBRARY_LOCK,MAX_UPLOAD_BYTES,MAX_LIBRARY_BYTES
 from .services.video_store import library,csv_rows
 from .services.export_service import experiment_data
 from .core import ROOT
 
 from .services.video_tools import tool_path
+
+class DeleteVideosRequest(BaseModel):
+    ids:list[UUID]=Field(min_length=1,max_length=100)
 
 class FinishRequest(BaseModel):
     experiment_uuid:UUID
@@ -35,12 +38,19 @@ def video_router(generator,receiver,token):
                         'max_upload_bytes':MAX_UPLOAD_BYTES,'max_library_bytes':MAX_LIBRARY_BYTES}
     @router.get('/api/video/library')
     def assets():return library()
+    @router.post('/api/video/library/delete')
+    async def delete_selected(c:DeleteVideosRequest):
+        async with LIBRARY_LOCK:return delete_videos([str(id) for id in c.ids])
+    @router.delete('/api/video/library/{id}')
+    async def delete_single(id:UUID):
+        async with LIBRARY_LOCK:return delete_videos([str(id)])
     @router.post('/api/video/library/upload')
     async def upload_video(request:Request,filename:str):return await checked(upload,request,filename)
     @router.post('/api/video/library/{id}/analyze')
     async def analysis(id:UUID,c:AnalysisConfig):return await checked(analyze,str(id),c.window_seconds)
     @router.post('/api/video/experiments/start')
-    async def start(c:VideoConfig):return await checked(generator.start,c)
+    async def start(c:VideoConfig):
+        async with LIBRARY_LOCK:return await checked(generator.start,c)
     @router.post('/api/video/experiments/{id}/stop')
     async def stop(id:int):
         e=record(id)

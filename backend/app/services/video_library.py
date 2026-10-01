@@ -11,6 +11,7 @@ MAX_UPLOAD_BYTES=int(os.environ.get('LANCE_VIDEO_MAX_BYTES',str(2*1024**3)))
 MAX_LIBRARY_BYTES=int(os.environ.get('LANCE_VIDEO_LIBRARY_BYTES',str(50*1024**3)))
 UPLOAD_SLOTS=asyncio.Semaphore(2)
 analysis_locks={}
+LIBRARY_LOCK=asyncio.Lock()
 
 async def upload(request,filename):
     if not filename or len(filename)>255 or '/' in filename or '\\' in filename or any(ord(c)<32 for c in filename) or filename in ('.','..'):
@@ -49,3 +50,35 @@ async def analyze(id,window):
         with Session() as db:
             asset=db.get(VideoAsset,id);asset.analysis=rows;db.commit()
         return rows
+
+
+def delete_videos(ids):
+    """Validate the entire batch before removing files; retain historical sessions."""
+    from ..database import Experiment
+    ids=list(dict.fromkeys(ids))
+    with Session() as db:
+        assets=[db.get(VideoAsset,id) for id in ids]
+        if any(asset is None for asset in assets):raise HTTPException(404,'Video not found; no videos deleted')
+        active=db.query(Experiment).filter(Experiment.status.in_(['RUNNING','STARTING','STOPPING'])).all()
+        protected=set()
+        for experiment in active:
+            protected.update(str(id) for id in experiment.config.get('video_ids',[]))
+            protected.update(s.get('video_id') for s in experiment.sessions or [])
+        if protected.intersection(ids):raise HTTPException(409,'Vídeo utilizado por um experimento em execução; nenhum vídeo excluído')
+        if any(analysis_locks.get(id) and analysis_locks[id].locked() for id in ids):raise HTTPException(409,'Análise em execução; aguarde antes de excluir')
+        paths=[path_for(asset) for asset in assets]
+        moved=[]
+        try:
+            for path in paths:
+                if path.exists():
+                    temporary=path.with_name('.deleted-'+str(uuid.uuid4()))
+                    path.rename(temporary);moved.append((path,temporary))
+            for asset in assets:db.delete(asset)
+            db.commit()
+        except BaseException:
+            db.rollback()
+            for path,temporary in reversed(moved):temporary.rename(path)
+            raise
+        for path,temporary in moved:temporary.unlink(missing_ok=True)
+    for id in ids:analysis_locks.pop(id,None)
+    return {'deleted_ids':ids}
