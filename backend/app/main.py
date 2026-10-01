@@ -6,11 +6,19 @@ from fastapi.staticfiles import StaticFiles
 from .core import ROOT,VERSION
 from .database import init_db,Session,Experiment,StoredProfile,serialize
 from .schemas import TestConfig,ServerConfig,Profile
+from pydantic import BaseModel,Field,field_validator
+from .services.experiment_service import delete_experiments,DeletionError
 from .services.system_service import system_info,iperf_info
 from .services.process_manager import ProcessManager
 from .services.iperf_runner import IperfRunner,now
 from .services.export_service import experiment_data,csv_export,filename
+from .services.video_store import VideoAsset,VideoSession
+from .services.video_sender import VideoTrafficGenerator
+from .services.video_receiver import FFmpegVideoReceiver
+from .video_api import video_router
 manager=ProcessManager(); runner=IperfRunner(manager)
+video=VideoTrafficGenerator(manager,runner.publish)
+video_receiver=FFmpegVideoReceiver(manager,runner.publish)
 log=logging.getLogger(__name__)
 tokenfile=ROOT/'run/access.token'
 if not tokenfile.exists():
@@ -25,7 +33,7 @@ async def lifespan(app):
         db.commit()
     log.info('application start version=%s',VERSION)
     yield
-    await runner.shutdown(); log.info('application stop')
+    await video.shutdown(); await video_receiver.stop(); await runner.shutdown(); log.info('application stop')
 app=FastAPI(title='LANCE Metrics',version=VERSION,lifespan=lifespan)
 @app.middleware('http')
 async def access(request:Request,call_next):
@@ -42,7 +50,7 @@ async def shutdown_application():
     # Respond before stopping; SIGTERM lets uvicorn close connections and run lifespan.
     await asyncio.sleep(0.5)
     log.info('web application shutdown requested')
-    await runner.shutdown()
+    await video.shutdown(); await video_receiver.stop(); await runner.shutdown()
     for id in list(runner.listeners):
         await runner.publish(id,{'type':'shutdown'})
     os.kill(os.getpid(),signal.SIGTERM)
@@ -56,7 +64,7 @@ async def application_stop(background:BackgroundTasks):
 def health(): return {'status':'ok','version':VERSION}
 @app.get('/api/status')
 def status():
-    return {'version':VERSION,'iperf':iperf_info(),'server':runner.server,'active_experiments':[id for id,t in runner.tasks.items() if not t.done()]}
+    return {'version':VERSION,'iperf':iperf_info(),'server':runner.server,'active_experiments':[id for owner in (runner,video) for id,t in owner.tasks.items() if not t.done()],'video_receiver':video_receiver.snapshot()}
 @app.get('/api/system')
 def system(): return system_info()
 @app.post('/api/server/start')
@@ -79,10 +87,38 @@ async def test_start(c:TestConfig):
 @app.post('/api/tests/{id}/stop')
 async def test_stop(id:int):
     if not experiment_data(id): raise HTTPException(404,'Experiment not found')
-    await runner.stop(id); return experiment_data(id)
+    e=experiment_data(id)
+    if e['config'].get('experiment_type')=='video':
+        if e['config'].get('role')=='receiver':await video_receiver.stop_experiment(id)
+        else:await video.stop(id)
+    else:await runner.stop(id)
+    return experiment_data(id)
 @app.get('/api/experiments')
 def experiments():
     with Session() as db: return [serialize(e) for e in db.query(Experiment).order_by(Experiment.id.desc())]
+class DeleteSelection(BaseModel):
+    ids:list[int]=Field(min_length=1,max_length=1000)
+    @field_validator('ids')
+    @classmethod
+    def positive(cls,ids):
+        if any(id<1 for id in ids):raise ValueError('Experiment IDs must be positive')
+        return ids
+async def remove_experiments(ids):
+    active={id for owner in (runner,video) for id,task in owner.tasks.items() if not task.done()} | {v['id'] for v in video_receiver.live.values()}
+    try:result=delete_experiments(ids,active)
+    except DeletionError as ex:raise HTTPException(ex.status,str(ex))
+    except Exception:
+        log.exception('experiment deletion failed')
+        raise HTTPException(500,'Falha ao excluir. Os dados foram mantidos; consulte o log.')
+    for id in result['deleted_ids']:
+        runner.tasks.pop(id,None); video.tasks.pop(id,None); video.stop_tasks.pop(id,None); video_receiver.forget(id)
+        if hasattr(runner,'stop_tasks'):runner.stop_tasks.pop(id,None)
+        await runner.publish(id,{'type':'deleted'})
+    return result
+@app.post('/api/experiments/delete')
+async def delete_selection(selection:DeleteSelection):return await remove_experiments(selection.ids)
+@app.delete('/api/experiments/{id}')
+async def delete_one(id:int):return await remove_experiments([id])
 @app.get('/api/experiments/{id}')
 def experiment(id:int):
     result=experiment_data(id)
@@ -152,6 +188,7 @@ async def server_ws(ws:WebSocket):
             else: await ws.send_json({'heartbeat':True})
             await asyncio.sleep(2)
     except (WebSocketDisconnect,RuntimeError,asyncio.TimeoutError): pass
+app.include_router(video_router(video,video_receiver,TOKEN))
 build=ROOT/'frontend/dist'
 if build.exists():
     app.mount('/assets',StaticFiles(directory=build/'assets'),name='assets')

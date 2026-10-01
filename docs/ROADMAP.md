@@ -13,3 +13,10 @@ Authenticated peer status/start/stop with predefined operations, UUID/session/st
 
 ## Phase 4
 Multiple flows and network topology experiments, concurrent isolated runs and more advanced statistical analysis.
+
+
+## Video Streaming — implemented extension
+
+Multiple streaming uploads; safe UUID library; real ffprobe metadata/packet-window source analysis; Preserve Source and controlled H.264; sequential/concurrent UDP and RTP MPEG-TS; actual received-video preview; separate payload measurement and RTP sequence/jitter observability; shared archive and per-session exports; owned process shutdown; optional authorized peer coordination with real RX retrieval.
+
+Next: native macOS and real multi-machine WAN/5G acceptance, stronger RTP sequence-source validation and loss outside observation boundaries, RTCP integration, verified NTP/chrony/PTP provenance and combined clock-aligned metrics, reconstructed receiver media with PSNR/SSIM/VMAF, library lifecycle/quota management and optional audio-capable preview. Existing dataset replay and distributed clock work remain on the roadmap.

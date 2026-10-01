@@ -1,1 +1,1 @@
-{"pid": 94384, "create_time": 1790874535.14, "command": ["/home/paulo/lanceMetrics/.venv/bin/python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8080", "--ws", "websockets"], "port": 8080}
+{"pid": 183672, "create_time": 1790886350.98, "command": ["/home/paulo/lanceMetrics/.venv/bin/python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8080", "--ws", "websockets"], "port": 8080}

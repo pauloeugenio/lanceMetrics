@@ -30,6 +30,8 @@ class StoredProfile(Base):
     id=Column(Integer,primary_key=True)
     definition=Column(JSON)
 Session=sessionmaker(engine,expire_on_commit=False)
-def init_db(): Base.metadata.create_all(engine)
+def init_db():
+    from .services.video_store import VideoAsset,VideoSession
+    Base.metadata.create_all(engine)
 def serialize(e):
     return {c.name:getattr(e,c.name) for c in e.__table__.columns}

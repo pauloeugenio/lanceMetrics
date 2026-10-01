@@ -11,6 +11,9 @@ def experiment_data(id):
 
 def csv_export(data):
     rows=data['measurements']; output=io.StringIO()
+    if data['config'].get('experiment_type')=='video':
+        from .video_store import csv_rows
+        return csv_rows([{'experiment_uuid':data['uuid'],**row} for row in rows])
     fields=['experiment_uuid','timestamp','elapsed_time','interval_start','seconds','stage_id','session_id','target_bps','sender_bps','receiver_bps','sender_bytes','receiver_bytes','packets_sent','packets_received','packets_lost','loss_percent','jitter_ms','retransmissions','metric_source']
     writer=csv.DictWriter(output,fields,extrasaction='ignore'); writer.writeheader()
     for row in rows: writer.writerow({'experiment_uuid':data['uuid'],**row})

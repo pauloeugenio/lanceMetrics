@@ -39,6 +39,13 @@ def diagnostics():
         result=subprocess.run([executable(),'-c',f'import {module}'],capture_output=True)
         check('Backend dependency '+module,result.returncode==0)
     check('Frontend build',(ROOT/'frontend/dist/index.html').exists());check('iperf3',shutil.which('iperf3') is not None)
+    from .services.video_tools import tool_path,tool_env
+    for binary in ('ffmpeg','ffprobe'):
+        found=tool_path(binary)
+        check('FFmpeg' if binary=='ffmpeg' else 'ffprobe',found is not None)
+        if found:
+            result=subprocess.run([found,'-version'],capture_output=True,text=True,timeout=5,env=tool_env(binary))
+            print('       '+result.stdout.splitlines()[0])
     try:
         with sqlite3.connect(':memory:') as db: db.execute('select 1')
         check('SQLite',True)

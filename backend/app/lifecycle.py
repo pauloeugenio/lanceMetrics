@@ -29,7 +29,7 @@ def stop():
         try:p.wait(timeout=15)
         except psutil.TimeoutExpired:raise SystemExit('Backend did not stop; inspect logs before retrying.')
     # Identity verification avoids signalling unrelated processes after PID reuse.
-    for file in (ROOT/'run').glob('iperf_*.json'):
+    for file in [*(ROOT/'run').glob('iperf_*.json'),*(ROOT/'run').glob('ffmpeg_*.json')]:
         name=file.stem;child=owned(name)
         if child:
             child.terminate()

@@ -11,16 +11,18 @@ case "$(uname -s)" in
   command -v python3 >/dev/null || packages+=(python3)
   python3 -c 'import venv,ensurepip' >/dev/null 2>&1 || packages+=(python3-venv)
   command -v iperf3 >/dev/null || packages+=(iperf3)
+  if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then packages+=(ffmpeg); fi
   command -v node >/dev/null || packages+=(nodejs)
   command -v npm >/dev/null || packages+=(npm)
   if [ "${#packages[@]}" -gt 0 ]; then sudo apt-get update; sudo apt-get install -y "${packages[@]}"; fi
  ;;
  Darwin)
   if ! command -v brew >/dev/null; then
-   for bin in python3 iperf3 node npm; do command -v "$bin" >/dev/null || { echo 'Homebrew is required to automatically install missing dependencies on macOS. See https://brew.sh'; exit 1; }; done
+   for bin in python3 iperf3 ffmpeg ffprobe node npm; do command -v "$bin" >/dev/null || { echo 'Homebrew is required to automatically install missing dependencies on macOS. See https://brew.sh'; exit 1; }; done
   else
    command -v python3 >/dev/null || brew install python
    command -v iperf3 >/dev/null || brew install iperf3
+   if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then brew install ffmpeg; fi
    command -v node >/dev/null || brew install node
   fi
  ;;

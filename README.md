@@ -98,3 +98,16 @@ The MVP has no remote peer control, dataset replay, dark theme, per-stream/conge
 O logo usa a imagem original fornecida no login e na barra lateral. Para encerrar o servidor web, abra `./lanceMetrics` e escolha **[3] Stop Web Interface / Parar servidor web**, ou execute `./lanceMetrics stop-web` (`./stop.sh` continua funcionando). A parada também encerra os processos iperf gerenciados. Fechar o navegador ou sair do menu não encerra o serviço. Reinicie com a opção [2] ou `./start.sh`.
 
 Durante um teste, o dashboard e os detalhes mostram **TESTE EM EXECUÇÃO**, tempo decorrido, duração programada, estágio, destino/protocolo e progresso do tempo programado. Conexão, transições e coleta de resultados podem ampliar a duração total. A barra é um acompanhamento visual, não uma métrica de throughput. Versões de iperf sem JSON streaming mantêm TX/RX/jitter/perda como N/A até receberem resultados estruturados.
+
+## Excluir experimentos
+
+A tabela de experimentos tem checkboxes, seleção de todos os itens visíveis, o botão **Excluir selecionados** e uma coluna **Ações** com lixeira individual. A confirmação informa que resultados, medições e arquivos brutos serão removidos permanentemente. Testes em execução/finalização não podem ser excluídos. Um lote é validado por inteiro antes da exclusão; registros ausentes ou ativos impedem a remoção de todos os itens. Arquivos são restaurados se a transação do banco falhar. Profiles são mantidos. Exporte os resultados que deseja guardar antes de confirmar.
+
+
+## Video Streaming Experiment
+
+The existing project now supports real FFmpeg video transmission independently of iperf3. Use **New Experiment → Experiment Type → Video Streaming** or its sidebar entry. Multiple streaming uploads, ffprobe metadata and source analysis, ordered sequential/concurrent queues, source-preserving remux or controlled H.264, real Receiver JPEG preview, measured UDP/RTP payload counters, optional token-authenticated Receiver peer coordination, partial stop results and per-video exports share the current archive.
+
+Install FFmpeg/ffprobe with `sudo apt-get install -y ffmpeg` on Ubuntu/Debian or `brew install ffmpeg` on macOS; `./install.sh` and Diagnostics check both. Start the Receiver on machine B first, then upload/select videos on Sender A. Concurrent uses ports base/base+2/base+4. Optional Receiver Peer URL/token retrieves correlated RX results; otherwise RX remains N/A at the Sender.
+
+See [VIDEO_STREAMING.md](docs/VIDEO_STREAMING.md) for the complete two-machine workflow, uploads, measurement definitions, APIs, export formats, limits and reproducibility. UDP loss/jitter are N/A; RTP uses sequence observability and RFC3550 jitter. Preview delay and unrelated machine timestamps never establish network one-way latency.

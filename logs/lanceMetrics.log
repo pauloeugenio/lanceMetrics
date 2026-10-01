@@ -127,3 +127,303 @@
 2026-10-01 14:14:16,093 INFO backend.app.services.iperf_runner profile stage experiment=b168c289-5614-4d2d-9ef2-61a8cbfc5bd0 stage=0 session=07b9294c-3f17-4e88-a67e-50230b9230fd
 2026-10-01 14:14:16,098 INFO backend.app.services.process_manager process start iperf_client_36 pid=96804
 2026-10-01 14:14:37,777 INFO backend.app.services.iperf_runner experiment completed uuid=b168c289-5614-4d2d-9ef2-61a8cbfc5bd0
+2026-10-01 14:28:39,607 INFO backend.app.services.iperf_runner experiment start uuid=5527a035-bca5-4647-b977-d2919805b599 target=192.168.150.2 protocol=udp
+2026-10-01 14:28:39,616 INFO backend.app.services.iperf_runner profile stage experiment=5527a035-bca5-4647-b977-d2919805b599 stage=0 session=edf7edf8-3cc2-44ca-bd49-246c1ecbc931
+2026-10-01 14:28:39,621 INFO backend.app.services.process_manager process start iperf_client_37 pid=103085
+2026-10-01 14:29:39,716 INFO backend.app.services.iperf_runner experiment completed uuid=5527a035-bca5-4647-b977-d2919805b599
+2026-10-01 14:31:31,908 INFO backend.app.services.iperf_runner experiment start uuid=5713525f-277b-48c6-957a-c23e2d4d7dc2 target=192.168.150.2 protocol=tcp
+2026-10-01 14:31:31,918 INFO backend.app.services.iperf_runner profile stage experiment=5713525f-277b-48c6-957a-c23e2d4d7dc2 stage=0 session=3e40e4d9-180c-49eb-9dc0-874f54e958cd
+2026-10-01 14:31:31,922 INFO backend.app.services.process_manager process start iperf_client_38 pid=104288
+2026-10-01 14:32:32,314 INFO backend.app.services.iperf_runner experiment completed uuid=5713525f-277b-48c6-957a-c23e2d4d7dc2
+2026-10-01 14:38:25,151 INFO backend.app.services.iperf_runner experiment start uuid=0410e4f8-1bcb-41c7-b660-8cd61cea878b target=192.168.150.2 protocol=udp
+2026-10-01 14:38:25,160 INFO backend.app.services.iperf_runner profile stage experiment=0410e4f8-1bcb-41c7-b660-8cd61cea878b stage=0 session=f3444b49-4ce6-49de-95fe-1fce3207d52a
+2026-10-01 14:38:25,164 INFO backend.app.services.process_manager process start iperf_client_39 pid=107235
+2026-10-01 14:38:36,145 INFO backend.app.services.iperf_runner profile stage experiment=0410e4f8-1bcb-41c7-b660-8cd61cea878b stage=1 session=1ec9751c-a758-45e6-a507-4723fdc9266e
+2026-10-01 14:38:36,149 INFO backend.app.services.process_manager process start iperf_client_39 pid=107315
+2026-10-01 14:38:47,476 INFO backend.app.services.iperf_runner profile stage experiment=0410e4f8-1bcb-41c7-b660-8cd61cea878b stage=2 session=d518e8ad-7449-433a-b797-11f01fa23f7b
+2026-10-01 14:38:47,485 INFO backend.app.services.process_manager process start iperf_client_39 pid=107410
+2026-10-01 14:38:58,077 INFO backend.app.services.iperf_runner profile stage experiment=0410e4f8-1bcb-41c7-b660-8cd61cea878b stage=3 session=8a331537-0d04-4c60-9913-76eb948fde57
+2026-10-01 14:38:58,086 INFO backend.app.services.process_manager process start iperf_client_39 pid=107493
+2026-10-01 14:39:38,088 ERROR backend.app.services.iperf_runner experiment failed 0410e4f8-1bcb-41c7-b660-8cd61cea878b
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 84, in consume
+    while chunk:=await p.stdout.read(65536): f.write(chunk); f.flush()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/streams.py", line 713, in read
+    await self._wait_for_data('read')
+  File "/usr/lib/python3.12/asyncio/streams.py", line 545, in _wait_for_data
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 86, in run
+    try: await asyncio.wait_for(consume(),cfg.duration+30)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+  File "/usr/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+2026-10-01 14:54:30,227 INFO backend.app.main application stop
+2026-10-01 14:54:31,616 INFO backend.app.main application start version=0.1.0
+2026-10-01 14:54:33,948 INFO backend.app.services.iperf_runner experiment start uuid=ed94301b-a95c-41c5-8892-5de33c1f7e8f target=127.0.0.1 protocol=udp
+2026-10-01 14:54:33,965 INFO backend.app.services.iperf_runner profile stage experiment=ed94301b-a95c-41c5-8892-5de33c1f7e8f stage=0 session=f4fbb712-4194-41f6-a913-6f19481a0b53
+2026-10-01 14:54:33,990 INFO backend.app.services.process_manager process start iperf_client_40 pid=114677
+2026-10-01 14:54:33,992 ERROR backend.app.services.iperf_runner experiment failed ed94301b-a95c-41c5-8892-5de33c1f7e8f
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 14:54:34,056 INFO backend.app.services.iperf_runner experiment start uuid=4d92afe2-5ccc-4345-bf9b-64820aa92987 target=127.0.0.1 protocol=udp
+2026-10-01 14:54:34,067 INFO backend.app.services.iperf_runner profile stage experiment=4d92afe2-5ccc-4345-bf9b-64820aa92987 stage=0 session=1a1cd082-07ca-4c54-96c1-3b3be23e4b0d
+2026-10-01 14:54:34,080 INFO backend.app.services.process_manager process start iperf_client_41 pid=114694
+2026-10-01 14:54:34,081 ERROR backend.app.services.iperf_runner experiment failed 4d92afe2-5ccc-4345-bf9b-64820aa92987
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 14:54:34,119 INFO backend.app.services.iperf_runner experiment start uuid=61657fb1-d64e-4f38-99ba-c34f0868d987 target=127.0.0.1 protocol=udp
+2026-10-01 14:54:34,131 INFO backend.app.services.iperf_runner profile stage experiment=61657fb1-d64e-4f38-99ba-c34f0868d987 stage=0 session=7ddb9c46-78a8-44a8-9362-5a3f4cad9313
+2026-10-01 14:54:34,142 INFO backend.app.services.process_manager process start iperf_client_42 pid=114701
+2026-10-01 14:54:34,144 ERROR backend.app.services.iperf_runner experiment failed 61657fb1-d64e-4f38-99ba-c34f0868d987
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 14:54:35,802 INFO backend.app.services.experiment_service experiments deleted ids=[40] cleanup_pending=False
+2026-10-01 14:54:35,965 INFO backend.app.services.experiment_service experiments deleted ids=[42, 41] cleanup_pending=False
+2026-10-01 14:54:37,856 INFO backend.app.services.process_manager process start iperf_server pid=114832
+2026-10-01 14:54:38,781 INFO backend.app.services.iperf_runner experiment start uuid=9a7e2e18-fc90-4ab0-bf25-5e53c9850734 target=127.0.0.1 protocol=udp
+2026-10-01 14:54:38,792 INFO backend.app.services.iperf_runner profile stage experiment=9a7e2e18-fc90-4ab0-bf25-5e53c9850734 stage=0 session=5b7e6899-0a84-4666-a95a-ccf5d140f1f1
+2026-10-01 14:54:38,799 INFO backend.app.services.process_manager process start iperf_client_40 pid=114857
+2026-10-01 14:54:40,610 INFO backend.app.services.iperf_runner experiment stopped uuid=9a7e2e18-fc90-4ab0-bf25-5e53c9850734
+2026-10-01 14:54:40,640 INFO backend.app.services.process_manager process start iperf_server pid=114909
+2026-10-01 14:54:42,384 INFO backend.app.services.process_manager process start iperf_server pid=114996
+2026-10-01 14:54:43,371 INFO backend.app.services.iperf_runner experiment start uuid=78b54862-0024-4b2d-9e95-66a1a9906311 target=127.0.0.1 protocol=udp
+2026-10-01 14:54:43,383 INFO backend.app.services.iperf_runner profile stage experiment=78b54862-0024-4b2d-9e95-66a1a9906311 stage=0 session=7c908a8d-182f-4b84-97dd-b539e6b2dcc4
+2026-10-01 14:54:43,399 INFO backend.app.services.process_manager process start iperf_client_42 pid=115033
+2026-10-01 14:54:45,405 INFO backend.app.services.iperf_runner experiment completed uuid=78b54862-0024-4b2d-9e95-66a1a9906311
+2026-10-01 14:54:45,418 INFO backend.app.services.process_manager process start iperf_server pid=115081
+2026-10-01 14:54:48,378 INFO backend.app.services.iperf_runner experiment start uuid=343a819a-0fb7-4738-b262-ca8a6f23d9a0 target=127.0.0.1 protocol=udp
+2026-10-01 14:54:48,387 INFO backend.app.services.iperf_runner profile stage experiment=343a819a-0fb7-4738-b262-ca8a6f23d9a0 stage=0 session=33316e4e-ce07-44eb-97a8-61409299c56f
+2026-10-01 14:54:48,391 INFO backend.app.services.process_manager process start iperf_client_44 pid=115137
+2026-10-01 14:54:48,612 INFO backend.app.services.iperf_runner experiment stopped uuid=343a819a-0fb7-4738-b262-ca8a6f23d9a0
+2026-10-01 14:54:48,624 INFO backend.app.services.process_manager process start iperf_server pid=115147
+2026-10-01 14:54:52,150 INFO backend.app.services.process_manager process start iperf_server pid=115305
+2026-10-01 14:54:53,061 INFO backend.app.services.iperf_runner experiment start uuid=80e43fea-02d5-44d5-832d-baccdbc5e0c4 target=127.0.0.1 protocol=udp
+2026-10-01 14:54:53,070 INFO backend.app.services.iperf_runner profile stage experiment=80e43fea-02d5-44d5-832d-baccdbc5e0c4 stage=0 session=ec2e9440-9b17-4d56-99f9-b3ff2e6cf3b2
+2026-10-01 14:54:53,075 INFO backend.app.services.process_manager process start iperf_client_46 pid=115329
+2026-10-01 14:54:54,095 INFO backend.app.services.iperf_runner experiment completed uuid=80e43fea-02d5-44d5-832d-baccdbc5e0c4
+2026-10-01 14:54:54,120 INFO backend.app.services.process_manager process start iperf_server pid=115348
+2026-10-01 14:54:54,455 INFO backend.app.main export experiment=46 format=csv
+2026-10-01 14:54:54,500 INFO backend.app.main export experiment=46 format=json
+2026-10-01 15:04:25,050 INFO backend.app.services.iperf_runner experiment start uuid=8af63f7d-9ec1-42f7-93be-dd3c2a67865b target=127.0.0.1 protocol=udp
+2026-10-01 15:04:25,061 INFO backend.app.services.iperf_runner profile stage experiment=8af63f7d-9ec1-42f7-93be-dd3c2a67865b stage=0 session=c5788a23-01ef-4ead-bea3-f86bd1018b88
+2026-10-01 15:04:25,065 INFO backend.app.services.process_manager process start iperf_client_48 pid=120167
+2026-10-01 15:04:25,066 ERROR backend.app.services.iperf_runner experiment failed 8af63f7d-9ec1-42f7-93be-dd3c2a67865b
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 15:04:25,160 INFO backend.app.services.iperf_runner experiment start uuid=9338f197-72ff-427b-bf2b-8ede92db561d target=127.0.0.1 protocol=udp
+2026-10-01 15:04:25,171 INFO backend.app.services.iperf_runner profile stage experiment=9338f197-72ff-427b-bf2b-8ede92db561d stage=0 session=85589776-8d62-44b7-9684-60966363f842
+2026-10-01 15:04:25,177 INFO backend.app.services.process_manager process start iperf_client_49 pid=120174
+2026-10-01 15:04:25,178 ERROR backend.app.services.iperf_runner experiment failed 9338f197-72ff-427b-bf2b-8ede92db561d
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 15:04:25,213 INFO backend.app.services.iperf_runner experiment start uuid=0c885dd4-409b-4cb4-8341-ac51c027939a target=127.0.0.1 protocol=udp
+2026-10-01 15:04:25,223 INFO backend.app.services.iperf_runner profile stage experiment=0c885dd4-409b-4cb4-8341-ac51c027939a stage=0 session=4ae39ed4-5890-4ec4-bbd6-c64facfcbfce
+2026-10-01 15:04:25,227 INFO backend.app.services.process_manager process start iperf_client_50 pid=120181
+2026-10-01 15:04:25,228 ERROR backend.app.services.iperf_runner experiment failed 0c885dd4-409b-4cb4-8341-ac51c027939a
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 15:04:26,965 INFO backend.app.services.experiment_service experiments deleted ids=[48] cleanup_pending=False
+2026-10-01 15:04:27,139 INFO backend.app.services.experiment_service experiments deleted ids=[50, 49] cleanup_pending=False
+2026-10-01 15:04:29,096 INFO backend.app.services.process_manager process start iperf_server pid=120313
+2026-10-01 15:04:30,037 INFO backend.app.services.iperf_runner experiment start uuid=5d38b06e-8ded-41bf-9117-3472ffcf5ab5 target=127.0.0.1 protocol=udp
+2026-10-01 15:04:30,053 INFO backend.app.services.iperf_runner profile stage experiment=5d38b06e-8ded-41bf-9117-3472ffcf5ab5 stage=0 session=2375fb45-3288-4b7e-b1fd-60e5577349be
+2026-10-01 15:04:30,060 INFO backend.app.services.process_manager process start iperf_client_48 pid=120349
+2026-10-01 15:04:31,941 INFO backend.app.services.iperf_runner experiment stopped uuid=5d38b06e-8ded-41bf-9117-3472ffcf5ab5
+2026-10-01 15:04:31,980 INFO backend.app.services.process_manager process start iperf_server pid=120379
+2026-10-01 15:04:33,996 INFO backend.app.services.process_manager process start iperf_server pid=120466
+2026-10-01 15:04:34,902 INFO backend.app.services.iperf_runner experiment start uuid=5debae48-6463-42ce-b878-a300e02c742d target=127.0.0.1 protocol=udp
+2026-10-01 15:04:34,914 INFO backend.app.services.iperf_runner profile stage experiment=5debae48-6463-42ce-b878-a300e02c742d stage=0 session=6b93f0eb-2d5b-471c-82e9-1dec531af3c2
+2026-10-01 15:04:34,918 INFO backend.app.services.process_manager process start iperf_client_50 pid=120499
+2026-10-01 15:04:36,936 INFO backend.app.services.iperf_runner experiment completed uuid=5debae48-6463-42ce-b878-a300e02c742d
+2026-10-01 15:04:36,950 INFO backend.app.services.process_manager process start iperf_server pid=120536
+2026-10-01 15:04:38,639 INFO backend.app.services.iperf_runner experiment start uuid=12cb0d77-2d4c-4d3d-8756-722e12eb002f target=127.0.0.1 protocol=udp
+2026-10-01 15:04:38,649 INFO backend.app.services.iperf_runner profile stage experiment=12cb0d77-2d4c-4d3d-8756-722e12eb002f stage=0 session=e89a5292-c671-442b-b94f-a29978e951f4
+2026-10-01 15:04:38,654 INFO backend.app.services.process_manager process start iperf_client_52 pid=120588
+2026-10-01 15:04:38,914 INFO backend.app.services.iperf_runner experiment stopped uuid=12cb0d77-2d4c-4d3d-8756-722e12eb002f
+2026-10-01 15:04:38,931 INFO backend.app.services.process_manager process start iperf_server pid=120600
+2026-10-01 15:04:42,793 INFO backend.app.services.process_manager process start iperf_server pid=120756
+2026-10-01 15:04:43,722 INFO backend.app.services.iperf_runner experiment start uuid=89dfef8b-f5a3-4765-878d-74aab50b5d33 target=127.0.0.1 protocol=udp
+2026-10-01 15:04:43,734 INFO backend.app.services.iperf_runner profile stage experiment=89dfef8b-f5a3-4765-878d-74aab50b5d33 stage=0 session=788c7c9c-b270-46fb-846c-4e606ddc0bb2
+2026-10-01 15:04:43,739 INFO backend.app.services.process_manager process start iperf_client_54 pid=120779
+2026-10-01 15:04:44,758 INFO backend.app.services.iperf_runner experiment completed uuid=89dfef8b-f5a3-4765-878d-74aab50b5d33
+2026-10-01 15:04:44,773 INFO backend.app.services.process_manager process start iperf_server pid=120798
+2026-10-01 15:04:45,144 INFO backend.app.main export experiment=54 format=csv
+2026-10-01 15:04:45,213 INFO backend.app.main export experiment=54 format=json
+2026-10-01 16:52:17,691 INFO backend.app.main application stop
+2026-10-01 16:52:19,186 INFO backend.app.main application start version=0.1.0
+2026-10-01 16:53:06,628 INFO backend.app.services.iperf_runner experiment start uuid=f9b54c87-6e1e-4551-a136-61208ee3a029 target=127.0.0.1 protocol=udp
+2026-10-01 16:53:06,637 INFO backend.app.services.iperf_runner profile stage experiment=f9b54c87-6e1e-4551-a136-61208ee3a029 stage=0 session=a09b9ee2-ba87-4157-9441-6248327ebd6a
+2026-10-01 16:53:06,645 INFO backend.app.services.process_manager process start iperf_client_56 pid=165129
+2026-10-01 16:53:06,647 ERROR backend.app.services.iperf_runner experiment failed f9b54c87-6e1e-4551-a136-61208ee3a029
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 16:53:06,680 INFO backend.app.services.iperf_runner experiment start uuid=d810176b-4795-4983-b9b5-c5964614e991 target=127.0.0.1 protocol=udp
+2026-10-01 16:53:06,699 INFO backend.app.services.iperf_runner profile stage experiment=d810176b-4795-4983-b9b5-c5964614e991 stage=0 session=9b7c8f97-4467-46ae-b551-2f4444f8e907
+2026-10-01 16:53:06,705 INFO backend.app.services.process_manager process start iperf_client_57 pid=165136
+2026-10-01 16:53:06,707 ERROR backend.app.services.iperf_runner experiment failed d810176b-4795-4983-b9b5-c5964614e991
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 16:53:06,732 INFO backend.app.services.iperf_runner experiment start uuid=85148528-aa03-4907-9d87-28c8164dead8 target=127.0.0.1 protocol=udp
+2026-10-01 16:53:06,745 INFO backend.app.services.iperf_runner profile stage experiment=85148528-aa03-4907-9d87-28c8164dead8 stage=0 session=d4bd4c8b-bc45-4540-8402-7846dba6bf53
+2026-10-01 16:53:06,752 INFO backend.app.services.process_manager process start iperf_client_58 pid=165143
+2026-10-01 16:53:06,753 ERROR backend.app.services.iperf_runner experiment failed 85148528-aa03-4907-9d87-28c8164dead8
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 16:53:08,526 INFO backend.app.services.experiment_service experiments deleted ids=[56] cleanup_pending=False
+2026-10-01 16:53:08,694 INFO backend.app.services.experiment_service experiments deleted ids=[58, 57] cleanup_pending=False
+2026-10-01 16:53:10,448 INFO backend.app.services.process_manager process start iperf_server pid=165284
+2026-10-01 16:53:11,361 INFO backend.app.services.iperf_runner experiment start uuid=7a8c46d2-e311-4e49-95df-ce65a7f5e589 target=127.0.0.1 protocol=udp
+2026-10-01 16:53:11,372 INFO backend.app.services.iperf_runner profile stage experiment=7a8c46d2-e311-4e49-95df-ce65a7f5e589 stage=0 session=829b854c-df52-449a-a59a-fad7a310aa2d
+2026-10-01 16:53:11,377 INFO backend.app.services.process_manager process start iperf_client_56 pid=165317
+2026-10-01 16:53:13,272 INFO backend.app.services.iperf_runner experiment stopped uuid=7a8c46d2-e311-4e49-95df-ce65a7f5e589
+2026-10-01 16:53:13,294 INFO backend.app.services.process_manager process start iperf_server pid=165373
+2026-10-01 16:53:15,181 INFO backend.app.services.process_manager process start iperf_server pid=165458
+2026-10-01 16:53:16,074 INFO backend.app.services.iperf_runner experiment start uuid=57afe482-bf0c-42ab-8002-ce0ace4a2f4b target=127.0.0.1 protocol=udp
+2026-10-01 16:53:16,082 INFO backend.app.services.iperf_runner profile stage experiment=57afe482-bf0c-42ab-8002-ce0ace4a2f4b stage=0 session=157ffe94-9c49-42f4-84ea-aab35dc1fe23
+2026-10-01 16:53:16,087 INFO backend.app.services.process_manager process start iperf_client_58 pid=165481
+2026-10-01 16:53:18,099 INFO backend.app.services.iperf_runner experiment completed uuid=57afe482-bf0c-42ab-8002-ce0ace4a2f4b
+2026-10-01 16:53:18,112 INFO backend.app.services.process_manager process start iperf_server pid=165566
+2026-10-01 16:53:19,574 INFO backend.app.services.iperf_runner experiment start uuid=bba3aefc-73b1-4bff-9c5f-eb7df098a5a7 target=127.0.0.1 protocol=udp
+2026-10-01 16:53:19,583 INFO backend.app.services.iperf_runner profile stage experiment=bba3aefc-73b1-4bff-9c5f-eb7df098a5a7 stage=0 session=8b44a59b-1034-471d-b9fd-d6021bc5a56d
+2026-10-01 16:53:19,587 INFO backend.app.services.process_manager process start iperf_client_60 pid=165600
+2026-10-01 16:53:19,907 INFO backend.app.services.iperf_runner experiment stopped uuid=bba3aefc-73b1-4bff-9c5f-eb7df098a5a7
+2026-10-01 16:53:19,919 INFO backend.app.services.process_manager process start iperf_server pid=165611
+2026-10-01 16:55:24,662 INFO backend.app.services.process_manager process start iperf_server pid=167106
+2026-10-01 16:55:25,578 INFO backend.app.services.iperf_runner experiment start uuid=6ac50617-7366-4853-81a7-e85d98103000 target=127.0.0.1 protocol=udp
+2026-10-01 16:55:25,589 INFO backend.app.services.iperf_runner profile stage experiment=6ac50617-7366-4853-81a7-e85d98103000 stage=0 session=800dc5f7-ade3-4bed-a012-65cf7ab4ca35
+2026-10-01 16:55:25,594 INFO backend.app.services.process_manager process start iperf_client_62 pid=167129
+2026-10-01 16:55:26,605 INFO backend.app.services.iperf_runner experiment completed uuid=6ac50617-7366-4853-81a7-e85d98103000
+2026-10-01 16:55:26,617 INFO backend.app.services.process_manager process start iperf_server pid=167150
+2026-10-01 16:55:27,032 INFO backend.app.main export experiment=62 format=csv
+2026-10-01 16:55:27,080 INFO backend.app.main export experiment=62 format=json
+2026-10-01 16:59:23,355 INFO backend.app.main application stop
+2026-10-01 16:59:24,765 INFO backend.app.main application start version=0.1.0
+2026-10-01 17:03:56,757 INFO backend.app.services.process_manager process start ffmpeg_sender_3b9237a7-69f6-42a8-8ac1-5d2a87fdbb82 pid=171840
+2026-10-01 17:03:56,761 INFO backend.app.services.process_manager process start ffmpeg_sender_7b5fb0b0-acb4-4038-8108-f5de86e8d09f pid=171841
+2026-10-01 17:03:56,824 INFO backend.app.services.process_manager process start ffmpeg_receiver_65_28c34fb9-68d6-4585-83cb-ff5c209c5340 pid=171848
+2026-10-01 17:03:56,828 INFO backend.app.services.process_manager process start ffmpeg_receiver_65_7ab0e959-51ed-4fb6-a446-a87470b7762b pid=171849
+2026-10-01 17:16:53,803 INFO backend.app.main application stop
+2026-10-01 17:16:55,039 INFO backend.app.main application start version=0.1.0
+2026-10-01 17:21:25,048 INFO backend.app.services.iperf_runner experiment start uuid=70488339-52ff-46cc-8f44-7cfcea3ee5ac target=127.0.0.1 protocol=udp
+2026-10-01 17:21:25,058 INFO backend.app.services.iperf_runner profile stage experiment=70488339-52ff-46cc-8f44-7cfcea3ee5ac stage=0 session=ca381cb2-66d5-4742-9454-b4e3c86cc2eb
+2026-10-01 17:21:25,066 INFO backend.app.services.process_manager process start iperf_client_66 pid=180870
+2026-10-01 17:21:25,067 ERROR backend.app.services.iperf_runner experiment failed 70488339-52ff-46cc-8f44-7cfcea3ee5ac
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 17:21:25,099 INFO backend.app.services.iperf_runner experiment start uuid=b60ac0eb-f500-485e-a041-3e4d1c244ddd target=127.0.0.1 protocol=udp
+2026-10-01 17:21:25,108 INFO backend.app.services.iperf_runner profile stage experiment=b60ac0eb-f500-485e-a041-3e4d1c244ddd stage=0 session=a6f6aea6-2a17-41c6-8fa2-0766d687bc4d
+2026-10-01 17:21:25,111 INFO backend.app.services.process_manager process start iperf_client_67 pid=180877
+2026-10-01 17:21:25,112 ERROR backend.app.services.iperf_runner experiment failed b60ac0eb-f500-485e-a041-3e4d1c244ddd
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 17:21:25,136 INFO backend.app.services.iperf_runner experiment start uuid=c4fcdcbb-bed5-443a-9eed-3dd007ec9213 target=127.0.0.1 protocol=udp
+2026-10-01 17:21:25,146 INFO backend.app.services.iperf_runner profile stage experiment=c4fcdcbb-bed5-443a-9eed-3dd007ec9213 stage=0 session=6820c00e-d2a9-4d30-8dc9-a25de3a8a5ed
+2026-10-01 17:21:25,151 INFO backend.app.services.process_manager process start iperf_client_68 pid=180884
+2026-10-01 17:21:25,152 ERROR backend.app.services.iperf_runner experiment failed c4fcdcbb-bed5-443a-9eed-3dd007ec9213
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 95, in run
+    if p.returncode or final.get('error'): raise RuntimeError(final.get('error') or err.read_text() or 'iperf process failed')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: unable to connect to server - server may have stopped running or use a different port, firewall issue, etc.: Connection refused
+2026-10-01 17:21:26,893 INFO backend.app.services.experiment_service experiments deleted ids=[66] cleanup_pending=False
+2026-10-01 17:21:27,059 INFO backend.app.services.experiment_service experiments deleted ids=[68, 67] cleanup_pending=False
+2026-10-01 17:21:28,880 INFO backend.app.services.process_manager process start iperf_server pid=181005
+2026-10-01 17:21:29,790 INFO backend.app.services.iperf_runner experiment start uuid=0b62ba5c-40e3-4cba-b12f-c0fa21df03c0 target=127.0.0.1 protocol=udp
+2026-10-01 17:21:29,804 INFO backend.app.services.iperf_runner profile stage experiment=0b62ba5c-40e3-4cba-b12f-c0fa21df03c0 stage=0 session=591a7248-31ab-4322-a53b-2f0f52a04fce
+2026-10-01 17:21:29,807 INFO backend.app.services.process_manager process start iperf_client_66 pid=181038
+2026-10-01 17:21:31,641 INFO backend.app.services.iperf_runner experiment stopped uuid=0b62ba5c-40e3-4cba-b12f-c0fa21df03c0
+2026-10-01 17:21:31,664 INFO backend.app.services.process_manager process start iperf_server pid=181089
+2026-10-01 17:21:33,466 INFO backend.app.services.process_manager process start iperf_server pid=181173
+2026-10-01 17:21:34,375 INFO backend.app.services.iperf_runner experiment start uuid=66880d20-9ed0-42be-b39a-731d5d4af9e9 target=127.0.0.1 protocol=udp
+2026-10-01 17:21:34,385 INFO backend.app.services.iperf_runner profile stage experiment=66880d20-9ed0-42be-b39a-731d5d4af9e9 stage=0 session=fdaab944-4d5c-4e05-8dca-15e4f694faa2
+2026-10-01 17:21:34,388 INFO backend.app.services.process_manager process start iperf_client_68 pid=181199
+2026-10-01 17:21:36,403 INFO backend.app.services.iperf_runner experiment completed uuid=66880d20-9ed0-42be-b39a-731d5d4af9e9
+2026-10-01 17:21:36,413 INFO backend.app.services.process_manager process start iperf_server pid=181248
+2026-10-01 17:21:37,901 INFO backend.app.services.iperf_runner experiment start uuid=952fd30c-3a17-438d-a488-17966f10ccc7 target=127.0.0.1 protocol=udp
+2026-10-01 17:21:37,910 INFO backend.app.services.iperf_runner profile stage experiment=952fd30c-3a17-438d-a488-17966f10ccc7 stage=0 session=83a0b0c5-691e-44fe-b1e0-d8751e54ae7c
+2026-10-01 17:21:37,915 INFO backend.app.services.process_manager process start iperf_client_70 pid=181297
+2026-10-01 17:21:38,222 INFO backend.app.services.iperf_runner experiment stopped uuid=952fd30c-3a17-438d-a488-17966f10ccc7
+2026-10-01 17:21:38,238 INFO backend.app.services.process_manager process start iperf_server pid=181306
+2026-10-01 17:21:47,016 INFO backend.app.services.process_manager process start ffmpeg_sender_2e427e12-5850-4e1f-8d7d-4069c4676126 pid=181562
+2026-10-01 17:21:47,022 INFO backend.app.services.process_manager process start ffmpeg_sender_14b805ce-5727-4b9e-86a5-bfb3fc0d1ee9 pid=181563
+2026-10-01 17:21:47,077 INFO backend.app.services.process_manager process start ffmpeg_receiver_73_d04104b2-fa30-4829-8039-4a98a671be97 pid=181570
+2026-10-01 17:21:47,080 INFO backend.app.services.process_manager process start ffmpeg_receiver_73_10174401-8084-4a35-86ee-eee0571f88cf pid=181571
+2026-10-01 17:21:56,700 INFO backend.app.services.process_manager process start iperf_server pid=181875
+2026-10-01 17:21:57,610 INFO backend.app.services.iperf_runner experiment start uuid=48a45a95-869b-4fc0-81ee-1ceb014603b8 target=127.0.0.1 protocol=udp
+2026-10-01 17:21:57,620 INFO backend.app.services.iperf_runner profile stage experiment=48a45a95-869b-4fc0-81ee-1ceb014603b8 stage=0 session=fcedc5a3-f1e1-4743-b5a7-ade595208563
+2026-10-01 17:21:57,626 INFO backend.app.services.process_manager process start iperf_client_74 pid=181908
+2026-10-01 17:21:58,644 INFO backend.app.services.iperf_runner experiment completed uuid=48a45a95-869b-4fc0-81ee-1ceb014603b8
+2026-10-01 17:21:58,662 INFO backend.app.services.process_manager process start iperf_server pid=181917
+2026-10-01 17:21:59,012 INFO backend.app.main export experiment=74 format=csv
+2026-10-01 17:21:59,063 INFO backend.app.main export experiment=74 format=json
+2026-10-01 17:25:51,181 INFO backend.app.main application stop
+2026-10-01 17:25:52,656 INFO backend.app.main application start version=0.1.0
+2026-10-01 17:43:46,703 INFO backend.app.services.process_manager process start iperf_server pid=193038
+2026-10-01 17:43:46,708 ERROR backend.app.services.iperf_runner server failed
+Traceback (most recent call last):
+  File "/home/paulo/lanceMetrics/backend/app/services/iperf_runner.py", line 188, in server_loop
+    if p.returncode: raise RuntimeError(err.decode() or out.decode())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: {
+	"start":	{
+		"connected":	[],
+		"version":	"iperf 3.16",
+		"system_info":	"Linux paulo-lance 6.14.0-37-generic #37~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 10:25:38 UTC 2 x86_64"
+	},
+	"intervals":	[],
+	"end":	{
+	},
+	"error":	"error - unable to start listener for connections: Cannot assign requested address"
+}
+
+2026-10-01 17:44:23,703 INFO backend.app.services.iperf_runner experiment start uuid=4aebc3b3-8229-4a1f-b41f-e89aee1386bb target=192.168.150.2 protocol=udp
+2026-10-01 17:44:23,713 INFO backend.app.services.iperf_runner profile stage experiment=4aebc3b3-8229-4a1f-b41f-e89aee1386bb stage=0 session=fef408a2-6099-4de0-8247-2b18bee1d2fa
+2026-10-01 17:44:23,718 INFO backend.app.services.process_manager process start iperf_client_76 pid=193312
+2026-10-01 17:44:44,011 INFO backend.app.services.iperf_runner experiment completed uuid=4aebc3b3-8229-4a1f-b41f-e89aee1386bb
+2026-10-01 17:45:11,048 INFO backend.app.main export experiment=76 format=csv
+2026-10-01 17:45:40,822 INFO backend.app.services.experiment_service experiments deleted ids=[76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] cleanup_pending=False

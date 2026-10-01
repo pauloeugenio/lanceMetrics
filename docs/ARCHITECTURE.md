@@ -28,3 +28,12 @@ API requires a generated random access token (run/access.token, mode 0600). WebS
 Server observations are independent experiments in the destination SQLite database. Raw `extra_data` retains client session identifiers when iperf supplies them; UUID exchange/consolidation is not implemented. No remote control endpoints exist. `ExperimentSynchronizer` defines identity checks for future authenticated peer exchange; `TrafficGenerator` defines the dataset replay extension boundary. Dataset payload generation is not implemented.
 
 Frontend charts export SVG/PNG through local Plotly. Browser print produces a report/PDF without external services or a server PDF engine. Runtime needs no network services; dependency installation requires package repositories.
+
+
+## Additive video architecture
+
+`VideoTrafficGenerator` implements the traffic extension independently of `IperfRunner`. `VideoProbeService` analyzes the single-copy UUID library, `FFmpegCommandBuilder` emits safe argument lists, Sender/Receiver services manage queues and local UDP relays, `VideoNetworkMonitor` accounts application payload independently, and `VideoPreviewService` decodes received content to latest-frame JPEG WebSockets. The video router reuses existing Bearer/origin policies, while experiment events use the shared WebSocket publisher.
+
+`video_assets` and `video_sessions` are additive SQLite tables initialized on startup; old experiment/measurement/profile tables remain intact. Session snapshots and video measurements share existing Experiment/Measurement. Deletion cascades video sessions but retains library media. System shutdown stops video tasks before the existing iperf/ProcessManager shutdown. Native process ownership remains PID/create-time/argv based.
+
+Optional `VideoPeer` offers only authorized predefined ready/prepare/finish/complete calls, with UUID correlation and receiver result retrieval. It requires a manually armed Receiver and excludes peer credentials from persistence. Dataset replay, validated clock synchronization and PSNR/SSIM/VMAF remain separate future boundaries. See [VIDEO_STREAMING.md](VIDEO_STREAMING.md).

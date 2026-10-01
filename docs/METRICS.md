@@ -25,3 +25,12 @@ Profiles run distinct sessions with at least 0.5 seconds between stages for serv
 Raw per-stream data, congestion details and CPU observations remain in JSON. The current UI normalizes aggregate metrics, not all per-stream fields. Maximums from unavailable intervals remain N/A. Stopped/crashed sessions preserve raw partial output; they are not valid completed runs.
 
 Primary references: [iperf3 invocation](https://software.es.net/iperf/invoking.html), [iperf3 source](https://github.com/esnet/iperf), [UDP summary role correction](https://github.com/esnet/iperf/issues/1218).
+
+
+## Video metric provenance
+
+Video Source Average is ffprobe container bitrate; source temporal windows sum original encoded packet bytes and exclude container overhead. Target is the configured video encoder rate and is null in Preserve Source. Actual TX counts UDP payload successfully submitted by sendto; actual RX counts payload returned by recvfrom. Neither uses ffprobe bitrate or FFmpeg progress size as a network counter. Payload includes MPEG-TS and RTP headers when selected, excludes IP/UDP/link headers, and differs from physical NIC throughput. Packet/byte timeline counters are cumulative per session.
+
+Raw UDP has no reliable sequence identity: loss/jitter are null. RTP MPEG-TS type 33 tracks extended sequences, unique reception, gaps, wrap and reordering; loss outside the first/highest received sequence is unknown. Sequence tracking is bounded and turns loss unavailable when exhausted. Jitter uses RFC3550 interarrival smoothing with a 90 kHz clock; session jitter averages those receiver observations, aggregate jitter weights by received packet count. Aggregate loss is total lost/total expected. Aggregate throughput divides total bytes by experiment wall time, including concurrent overlap and transitions. Missing input metrics yield null/N/A.
+
+Receiver rows imported by a peer are aligned by nominal session start for plotting, labeled as unsynchronized, and cannot measure one-way delay. Combined clock-aligned CSV requires verified synchronization and is unavailable. Browser preview frames and latency never replace experimental stream/network metrics. Detailed formulas and limitations: [VIDEO_STREAMING.md](VIDEO_STREAMING.md).
