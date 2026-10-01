@@ -1,0 +1,58 @@
+{
+  "name": "Variable UDP Test",
+  "protocol": "udp",
+  "intervals": [
+    {
+      "duration": 10,
+      "bandwidth_mbps": 10
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 25
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 50
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 75
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 100
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 150
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 200
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 150
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 100
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 75
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 50
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 25
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 10
+    }
+  ]
+}

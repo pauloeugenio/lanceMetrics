@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+cd -- "$(dirname -- "$0")"
+if [ -x .venv/bin/python ]; then exec .venv/bin/python -m backend.app.terminal "$@"; fi
+if ! command -v python3 >/dev/null; then
+  echo 'Python is missing. Running the dependency installer.'
+  bash ./install.sh
+  exec .venv/bin/python -m backend.app.terminal "$@"
+fi
+exec python3 -m backend.app.terminal "$@"
