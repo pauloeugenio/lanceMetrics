@@ -19,3 +19,20 @@ def test_menu_stop_web_uses_existing_script(monkeypatch,capsys):
     terminal.menu()
     assert 'Stop Web Interface / Parar servidor web' in capsys.readouterr().out
     assert calls==['stop.sh']
+
+
+def test_exclusive_web_menu_stop_and_back(monkeypatch,capsys):
+    choices=iter(['10','1','0']);calls=[]
+    monkeypatch.setattr('builtins.input',lambda _:next(choices))
+    monkeypatch.setattr(terminal,'primary_ip',lambda:'127.0.0.1')
+    monkeypatch.setattr(terminal,'run_script',lambda name:calls.append(name) or 0)
+    terminal.menu()
+    assert calls==['stop.sh']
+    assert 'FINALIZAR SERVIDOR WEB' in capsys.readouterr().out
+
+def test_exclusive_web_menu_back_does_not_stop(monkeypatch):
+    choices=iter(['0']);calls=[]
+    monkeypatch.setattr('builtins.input',lambda _:next(choices))
+    monkeypatch.setattr(terminal,'run_script',lambda name:calls.append(name) or 0)
+    terminal.web_shutdown_menu()
+    assert calls==[]

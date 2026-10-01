@@ -79,6 +79,19 @@ def logs():
         if not path.exists():print('No log yet');continue
         try:subprocess.run(['tail','-n','100',*(['-f'] if choice=='5' else []),str(path)])
         except KeyboardInterrupt:print('\nLog follow stopped')
+def web_shutdown_menu():
+    while True:
+        print('\nFINALIZAR SERVIDOR WEB\n[1] Finalizar servidor web\n[0] Voltar ao menu principal')
+        try:choice=input('Escolha uma opção: ').strip()
+        except (EOFError,KeyboardInterrupt):print();return
+        if choice=='0':return
+        if choice=='1':
+            if run_script('stop.sh')==0:
+                print('Servidor web finalizado. A interface deixa de responder no navegador.')
+                return
+            print('A parada falhou. Consulte logs/backend.log.')
+        else:print('Opção inválida.')
+
 def menu():
     while True:
         installed=(ROOT/'run/installed').exists()
@@ -94,7 +107,7 @@ def menu():
             if initial=='1' and run_script('install.sh')==0:
                 os.execv(executable(),[executable(),'-m','backend.app.terminal'])
             continue
-        print('[1] Install / Update LANCE Metrics\n[2] Start LANCE Metrics\n[3] Stop Web Interface / Parar servidor web\n[4] Restart LANCE Metrics\n[5] Show Status\n[6] Show Logs\n[7] Open Web Interface\n[8] System Information\n[9] Run Diagnostics\n[0] Exit')
+        print('[1] Install / Update LANCE Metrics\n[2] Start LANCE Metrics\n[3] Stop Web Interface / Parar servidor web\n[4] Restart LANCE Metrics\n[5] Show Status\n[6] Show Logs\n[7] Open Web Interface\n[8] System Information\n[9] Run Diagnostics\n[10] Finalizar servidor web (menu exclusivo)\n[0] Exit')
         try:choice=input('Choose an option: ').strip()
         except (EOFError,KeyboardInterrupt):print();return
         try:
@@ -123,10 +136,12 @@ def menu():
                     with sqlite3.connect(dbfile) as db:
                         for table in ('experiments','profiles'):print(table,db.execute('select count(*) from '+table).fetchone()[0])
             elif choice=='9':diagnostics()
+            elif choice=='10':web_shutdown_menu()
         except KeyboardInterrupt:print('\nOperation interrupted')
 if __name__=='__main__':
     command=sys.argv[1] if len(sys.argv)>1 else 'menu'
     if command=='diagnostics':sys.exit(diagnostics())
     elif command=='status':status()
     elif command=='stop-web':sys.exit(run_script('stop.sh'))
+    elif command=='web-menu':web_shutdown_menu()
     else:menu()
