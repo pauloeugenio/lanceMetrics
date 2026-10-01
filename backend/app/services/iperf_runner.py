@@ -48,10 +48,11 @@ class IperfRunner:
         self.tasks[e.id]=asyncio.create_task(self.run(e.id,e.uuid,c,profile))
         return result
     async def run(self,id,euuid,c,profile):
-        folder=ROOT/'data/experiments'/euuid; folder.mkdir(exist_ok=True)
+        folder=ROOT/'data/experiments'/euuid
         origin=time.monotonic(); sessions=[]; sums=[]
-        (folder/'config.json').write_text(json.dumps({'configuration':c.model_dump(),'profile':profile,'environment':system_info()},indent=2))
         try:
+            folder.mkdir(parents=True,exist_ok=True)
+            (folder/'config.json').write_text(json.dumps({'configuration':c.model_dump(),'profile':profile,'environment':system_info()},indent=2))
             async for i,cfg in TrafficProfileRunner.stages(c,profile):
                 sid=str(uuid.uuid4()); offset=time.monotonic()-origin; started=now()
                 args=IperfCommandBuilder.client(cfg,sid,iperf_info()['json_stream'],bool(profile))
@@ -85,7 +86,8 @@ class IperfRunner:
                 try: await asyncio.wait_for(consume(),cfg.duration+30)
                 finally:
                     if p.returncode is None: await self.manager.stop(key)
-                    await et
+                    try: await asyncio.wait_for(et,3)
+                    except asyncio.TimeoutError: log.warning('stderr drain timed out experiment=%s',euuid)
                     self.manager.forget(key)
                 if final is None:
                     try: final=json.loads(raw.read_text())
@@ -126,12 +128,34 @@ class IperfRunner:
             log.exception('experiment failed %s',euuid); self.update(id,status='ERROR',error=str(ex),finished_at=now())
         finally:
             await self.publish(id,{'type':'state'})
-            with Session() as db:
-                data=serialize(db.get(Experiment,id)); data['measurements']=[m.values for m in db.query(Measurement).filter_by(experiment_id=id)]
-            (folder/'results.json').write_text(json.dumps(data,indent=2))
+            try:
+                with Session() as db:
+                    data=serialize(db.get(Experiment,id)); data['measurements']=[m.values for m in db.query(Measurement).filter_by(experiment_id=id)]
+                (folder/'results.json').write_text(json.dumps(data,indent=2))
+            except Exception: log.exception('result snapshot could not be saved experiment=%s',euuid)
     async def stop(self,id):
+        # Share shutdown work so double-clicks cannot cancel cleanup a second time.
+        if not hasattr(self,'stop_tasks'): self.stop_tasks={}
+        pending=self.stop_tasks.get(id)
+        if pending is None or pending.done():
+            pending=asyncio.create_task(self._stop(id));self.stop_tasks[id]=pending
+        await asyncio.shield(pending)
+    async def _stop(self,id):
         t=self.tasks.get(id)
-        if t and not t.done(): t.cancel(); await t
+        if t and not t.done():
+            t.cancel()
+            try: await t
+            except asyncio.CancelledError: pass
+            except Exception: log.exception('experiment task failed during stop id=%s',id)
+        elif t and not t.cancelled():
+            error=t.exception()
+            if error: log.error('experiment task previously failed id=%s error=%s',id,error)
+        await self.manager.stop(f'iperf_client_{id}')
+        with Session() as db:
+            e=db.get(Experiment,id)
+            if e and e.status=='RUNNING':
+                e.status='STOPPED';e.finished_at=now();db.commit()
+        await self.publish(id,{'type':'state'})
     async def start_server(self,c):
         if not shutil.which('iperf3'): raise ValueError('iperf3 is not installed')
         if self.server_task and not self.server_task.done(): raise ValueError('Server already running')

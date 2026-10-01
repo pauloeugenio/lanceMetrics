@@ -1,0 +1,127 @@
+{
+  "id": 15,
+  "uuid": "c151097c-a8f9-4971-bcf2-7532bf733ebd",
+  "name": "Immediate stop regression",
+  "status": "STOPPED",
+  "created_at": "2026-10-01T16:34:29.094540+00:00",
+  "started_at": "2026-10-01T16:34:29.094552+00:00",
+  "finished_at": "2026-10-01T16:34:29.391614+00:00",
+  "config": {
+    "name": "Immediate stop regression",
+    "description": "",
+    "target": "127.0.0.1",
+    "port": 45529,
+    "protocol": "udp",
+    "duration": 30,
+    "report_interval": 1.0,
+    "bandwidth_mbps": 10.0,
+    "parallel_streams": 1,
+    "reverse_mode": false,
+    "datagram_length": null,
+    "profile_id": null,
+    "traffic_profile": null,
+    "source_host": "paulo-lance",
+    "destination_host": "127.0.0.1",
+    "total_duration": 30
+  },
+  "environment": {
+    "application_version": "0.1.0",
+    "os": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+    "kernel": "6.14.0-37-generic",
+    "architecture": "x86_64",
+    "hostname": "paulo-lance",
+    "python": "3.12.3",
+    "timezone": "-03",
+    "interfaces": [
+      {
+        "interface": "lo",
+        "ip": "127.0.0.1",
+        "state": "UP"
+      },
+      {
+        "interface": "lo",
+        "ip": "::1",
+        "state": "UP"
+      },
+      {
+        "interface": "enp1s0",
+        "ip": "192.168.110.144",
+        "state": "UP"
+      },
+      {
+        "interface": "wlp2s0",
+        "ip": "192.168.150.220",
+        "state": "UP"
+      },
+      {
+        "interface": "wlp2s0",
+        "ip": "fe80::cfb0:6dba:a0f:fa95%wlp2s0",
+        "state": "UP"
+      },
+      {
+        "interface": "tailscale0",
+        "ip": "100.116.5.38",
+        "state": "UP"
+      },
+      {
+        "interface": "tailscale0",
+        "ip": "fd7a:115c:a1e0::ce33:527",
+        "state": "UP"
+      },
+      {
+        "interface": "tailscale0",
+        "ip": "fe80::9bce:f3fd:9892:3f12%tailscale0",
+        "state": "UP"
+      },
+      {
+        "interface": "br-7379795b7ec8",
+        "ip": "172.22.0.1",
+        "state": "DOWN"
+      },
+      {
+        "interface": "docker0",
+        "ip": "172.17.0.1",
+        "state": "DOWN"
+      }
+    ],
+    "iperf": {
+      "installed": true,
+      "version": "iperf 3.16 (cJSON 1.7.15)",
+      "json_stream": false
+    }
+  },
+  "summary": {},
+  "sessions": [
+    {
+      "stage_id": 0,
+      "session_id": "4b0ea428-c7d9-44fa-a16f-5a8582ad7dfa",
+      "started_at": "2026-10-01T16:34:29.106789+00:00",
+      "offset_seconds": 0.004482538999582175,
+      "command": [
+        "iperf3",
+        "-c",
+        "127.0.0.1",
+        "-p",
+        "45529",
+        "-t",
+        "30",
+        "-i",
+        "1.0",
+        "-P",
+        "1",
+        "--connect-timeout",
+        "5000",
+        "--get-server-output",
+        "--extra-data",
+        "4b0ea428-c7d9-44fa-a16f-5a8582ad7dfa",
+        "-J",
+        "-u",
+        "-b",
+        "10000000"
+      ],
+      "target_bps": 10000000.0
+    }
+  ],
+  "error": null,
+  "measurements": []
+}

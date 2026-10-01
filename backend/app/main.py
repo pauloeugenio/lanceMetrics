@@ -1,6 +1,6 @@
-import asyncio,json,logging,os,secrets
+import asyncio,json,logging,os,secrets,signal
 from contextlib import asynccontextmanager
-from fastapi import FastAPI,HTTPException,UploadFile,File,WebSocket,WebSocketDisconnect,Request
+from fastapi import FastAPI,HTTPException,UploadFile,File,WebSocket,WebSocketDisconnect,Request,BackgroundTasks
 from fastapi.responses import Response,FileResponse
 from fastapi.staticfiles import StaticFiles
 from .core import ROOT,VERSION
@@ -19,6 +19,7 @@ TOKEN=tokenfile.read_text().strip()
 @asynccontextmanager
 async def lifespan(app):
     init_db()
+    app.state.shutdown_requested=False
     with Session() as db:
         for e in db.query(Experiment).filter_by(status='RUNNING'): e.status='INTERRUPTED'; e.finished_at=now()
         db.commit()
@@ -31,10 +32,26 @@ async def access(request:Request,call_next):
     if request.url.path.startswith('/api/') and request.headers.get('Authorization')!='Bearer '+TOKEN:
         return Response('Access token required',status_code=401)
     if request.method not in ('GET','HEAD','OPTIONS'):
+        if getattr(app.state,'shutdown_requested',False) and request.url.path!='/api/system/stop':
+            return Response('Application is stopping',status_code=503)
         origin=request.headers.get('origin')
         if origin and origin.rstrip('/')!=str(request.base_url).rstrip('/'):
             return Response('Cross-origin mutation refused',status_code=403)
     return await call_next(request)
+async def shutdown_application():
+    # Respond before stopping; SIGTERM lets uvicorn close connections and run lifespan.
+    await asyncio.sleep(0.5)
+    log.info('web application shutdown requested')
+    await runner.shutdown()
+    for id in list(runner.listeners):
+        await runner.publish(id,{'type':'shutdown'})
+    os.kill(os.getpid(),signal.SIGTERM)
+@app.post('/api/system/stop',status_code=202)
+async def application_stop(background:BackgroundTasks):
+    if not getattr(app.state,'shutdown_requested',False):
+        app.state.shutdown_requested=True
+        background.add_task(shutdown_application)
+    return {'status':'STOPPING','message':'Web service is stopping. Restart it from lanceMetrics or start.sh.'}
 @app.get('/health')
 def health(): return {'status':'ok','version':VERSION}
 @app.get('/api/status')
@@ -115,7 +132,7 @@ async def websocket(ws:WebSocket,id:int):
         if not experiment_data(id): await ws.close(1008); return
         queue=asyncio.Queue(maxsize=100); runner.listeners.setdefault(id,set()).add(queue)
         await ws.send_json({'type':'snapshot','experiment':experiment_data(id)})
-        while True:
+        while not getattr(app.state,'shutdown_requested',False):
             try: event=await asyncio.wait_for(queue.get(),20)
             except asyncio.TimeoutError: event={'type':'heartbeat'}
             await ws.send_json(event)
@@ -129,7 +146,7 @@ async def server_ws(ws:WebSocket):
         auth=await asyncio.wait_for(ws.receive_json(),10)
         if not secrets.compare_digest(str(auth.get('token','')),TOKEN): await ws.close(1008); return
         previous=None
-        while True:
+        while not getattr(app.state,'shutdown_requested',False):
             current=json.dumps(runner.server)
             if current!=previous: await ws.send_json(runner.server); previous=current
             else: await ws.send_json({'heartbeat':True})

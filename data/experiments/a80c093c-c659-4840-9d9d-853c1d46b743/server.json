@@ -1,0 +1,107 @@
+{
+	"start":	{
+		"connected":	[{
+				"socket":	5,
+				"local_host":	"127.0.0.1",
+				"local_port":	36301,
+				"remote_host":	"127.0.0.1",
+				"remote_port":	49850
+			}],
+		"version":	"iperf 3.16",
+		"system_info":	"Linux paulo-lance 6.14.0-37-generic #37~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 10:25:38 UTC 2 x86_64",
+		"target_bitrate":	10000000,
+		"timestamp":	{
+			"time":	"Thu, 01 Oct 2026 16:26:33 GMT",
+			"timesecs":	1790871993
+		},
+		"accepted_connection":	{
+			"host":	"127.0.0.1",
+			"port":	38970
+		},
+		"cookie":	"pkxeqsax4sqypzw7ii3rfz6emnto26zocq6s",
+		"target_bitrate":	10000000,
+		"fq_rate":	0,
+		"sock_bufsize":	0,
+		"sndbuf_actual":	212992,
+		"rcvbuf_actual":	212992,
+		"test_start":	{
+			"protocol":	"UDP",
+			"num_streams":	1,
+			"blksize":	32768,
+			"omit":	0,
+			"duration":	30,
+			"bytes":	0,
+			"blocks":	0,
+			"reverse":	0,
+			"tos":	0,
+			"target_bitrate":	10000000,
+			"bidir":	0,
+			"fqrate":	0
+		}
+	},
+	"intervals":	[],
+	"end":	{
+		"streams":	[{
+				"udp":	{
+					"socket":	5,
+					"start":	0,
+					"end":	13516.507658,
+					"seconds":	13516.507658,
+					"bytes":	0,
+					"bits_per_second":	0,
+					"jitter_ms":	0.0060831320365523417,
+					"lost_packets":	0,
+					"packets":	11,
+					"lost_percent":	0,
+					"out_of_order":	0,
+					"sender":	false
+				}
+			}],
+		"sum":	{
+			"start":	0,
+			"end":	13516.507658,
+			"seconds":	13516.507658,
+			"bytes":	0,
+			"bits_per_second":	0,
+			"jitter_ms":	0.0060831320365523417,
+			"lost_packets":	0,
+			"packets":	11,
+			"lost_percent":	0,
+			"sender":	false
+		},
+		"sum_sent":	{
+			"start":	0,
+			"end":	13516.507658,
+			"seconds":	13516.507658,
+			"bytes":	0,
+			"bits_per_second":	0,
+			"jitter_ms":	0,
+			"lost_packets":	0,
+			"packets":	0,
+			"lost_percent":	0,
+			"sender":	true
+		},
+		"sum_received":	{
+			"start":	0,
+			"end":	13516.507658,
+			"seconds":	13516.507658,
+			"bytes":	360448,
+			"bits_per_second":	213.33794741671281,
+			"jitter_ms":	0.0060831320365523417,
+			"lost_packets":	0,
+			"packets":	11,
+			"lost_percent":	0,
+			"sender":	false
+		},
+		"cpu_utilization_percent":	{
+			"host_total":	0.2399840974393263,
+			"host_user":	0,
+			"host_system":	0.24034551927281927,
+			"remote_total":	0,
+			"remote_user":	0,
+			"remote_system":	0
+		}
+	},
+	"error":	"the client has terminated",
+	"extra_data":	"bb37a923-bb80-4064-8430-757c661cd8b3"
+}

@@ -15,3 +15,11 @@ Tested on Ubuntu/Linux x86_64, Python 3.12.3, Node 20.20.2, system Chrome and ip
 A Starlette test-client deprecation warning for httpx remains; it does not fail tests. Restricted sandbox socket access requires running integration/browser validation with appropriate permissions. Older iperf3 versions return JSON at session completion; live receiver measurements are not synthesized.
 
 For repeatable commands and research limitations, see README.md and METRICS.md.
+
+## Recovery fixes — 2026-10-01
+
+32 backend tests passed, including preparation failure, orphan RUNNING recovery and immediate/concurrent cancellation. Two Chrome workflows passed, including dashboard completion with experiment WebSocket intentionally unavailable and immediate STOP TEST. Async experiment responses now respect navigation; dashboard reconciles every 3 seconds with request timeouts. The active installation was moved to /home/paulo/lanceMetrics after stopping the verified old backend. Existing selected database and source files were backed up before changes.
+
+## Web application stop button — 2026-10-01
+
+34 backend tests passed, including authenticated/idempotent shutdown and a real isolated uvicorn shutdown during an active UDP run with an open experiment WebSocket. Server/client process records were cleaned, the stopped experiment persisted, and shutdown completed within the 10-second test deadline. Three Chrome workflows passed, including confirmation cancellation/acceptance and restart instructions (the browser test mocks the shutdown reply to keep its shared server available). The isolated backend integration test executes the actual stop operation.

@@ -203,3 +203,441 @@ INFO:     127.0.0.1:43586 - "GET /api/profiles HTTP/1.1" 200 OK
 INFO:     127.0.0.1:43578 - "GET /api/experiments HTTP/1.1" 200 OK
 INFO:     127.0.0.1:43568 - "GET /api/status HTTP/1.1" 200 OK
 INFO:     127.0.0.1:43552 - "GET /api/system HTTP/1.1" 200 OK
+/home/paulo/lanceMetrics/.venv/lib/python3.12/site-packages/uvicorn/protocols/websockets/websockets_impl.py:41: UvicornDeprecationWarning: The `websockets` implementation is deprecated, and `--ws websockets` will point at the `websockets-sansio` implementation in a future release. Use `--ws websockets-sansio` or `--ws auto` to switch now.
+  warnings.warn(
+INFO:     Started server process [72841]
+INFO:     Waiting for application startup.
+2026-10-01 13:23:00,796 INFO backend.app.main application start version=0.1.0
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     127.0.0.1:35714 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /assets/index-DAeKkNmL.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40332 - "GET /assets/index-SSK4O96v.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40364 - "WebSocket /ws/server" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:40348 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40332 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40332 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:23:34,002 INFO backend.app.services.process_manager process start iperf_server pid=73227
+INFO:     127.0.0.1:40350 - "POST /api/server/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40332 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:23:34,913 INFO backend.app.services.iperf_runner experiment start uuid=d05a90c2-4180-4612-88b9-91ed0c8d68ea target=127.0.0.1 protocol=udp
+2026-10-01 13:23:34,922 INFO backend.app.services.iperf_runner profile stage experiment=d05a90c2-4180-4612-88b9-91ed0c8d68ea stage=0 session=5f736eca-b9d5-4c66-b436-87fda9a5c498
+INFO:     127.0.0.1:40332 - "POST /api/tests/start HTTP/1.1" 200 OK
+2026-10-01 13:23:34,929 INFO backend.app.services.process_manager process start iperf_client_5 pid=73250
+INFO:     127.0.0.1:40332 - "GET /api/experiments/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40370 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40370 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/experiments/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+2026-10-01 13:23:36,946 INFO backend.app.services.iperf_runner experiment completed uuid=d05a90c2-4180-4612-88b9-91ed0c8d68ea
+2026-10-01 13:23:36,958 INFO backend.app.services.process_manager process start iperf_server pid=73282
+INFO:     127.0.0.1:40350 - "GET /api/experiments/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40370 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40330 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40348 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40350 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:60510 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /assets/index-SSK4O96v.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /assets/index-DAeKkNmL.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60548 - "WebSocket /ws/server" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60540 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60530 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60530 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60540 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60526 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60514 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:47600 - "POST /api/server/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /assets/index-CD3FZ5Jo.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /assets/index-SSK4O96v.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47632 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47654 - "WebSocket /ws/server" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:47606 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47632 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:26:29,076 INFO backend.app.services.process_manager process start iperf_server pid=74910
+INFO:     127.0.0.1:47606 - "POST /api/server/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47632 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/status HTTP/1.1" 200 OK
+2026-10-01 13:26:29,970 INFO backend.app.services.iperf_runner experiment start uuid=ea92c25b-30f3-4713-8d72-7396e049d39e target=127.0.0.1 protocol=udp
+2026-10-01 13:26:29,978 INFO backend.app.services.iperf_runner profile stage experiment=ea92c25b-30f3-4713-8d72-7396e049d39e stage=0 session=47839c13-8cb3-45a9-a24c-0025daca1228
+INFO:     127.0.0.1:47606 - "POST /api/tests/start HTTP/1.1" 200 OK
+2026-10-01 13:26:29,982 INFO backend.app.services.process_manager process start iperf_client_7 pid=74928
+INFO:     127.0.0.1:47606 - "GET /api/experiments/7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47632 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50960 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/experiments/7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/status HTTP/1.1" 200 OK
+2026-10-01 13:26:31,998 INFO backend.app.services.iperf_runner experiment completed uuid=ea92c25b-30f3-4713-8d72-7396e049d39e
+2026-10-01 13:26:32,010 INFO backend.app.services.process_manager process start iperf_server pid=74971
+INFO:     127.0.0.1:50964 - "GET /api/experiments/7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:26:33,419 INFO backend.app.services.iperf_runner experiment start uuid=b010ca50-20e3-4d0d-a34b-10ebf54bea93 target=127.0.0.1 protocol=udp
+2026-10-01 13:26:33,428 INFO backend.app.services.iperf_runner profile stage experiment=b010ca50-20e3-4d0d-a34b-10ebf54bea93 stage=0 session=bb37a923-bb80-4064-8430-757c661cd8b3
+INFO:     127.0.0.1:47642 - "POST /api/tests/start HTTP/1.1" 200 OK
+2026-10-01 13:26:33,432 INFO backend.app.services.process_manager process start iperf_client_9 pid=74995
+INFO:     127.0.0.1:47642 - "GET /api/experiments/9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/experiments/9 HTTP/1.1" 200 OK
+2026-10-01 13:26:33,718 INFO backend.app.services.iperf_runner experiment stopped uuid=b010ca50-20e3-4d0d-a34b-10ebf54bea93
+INFO:     127.0.0.1:50964 - "POST /api/tests/9/stop HTTP/1.1" 200 OK
+2026-10-01 13:26:33,731 INFO backend.app.services.process_manager process start iperf_server pid=75006
+INFO:     127.0.0.1:47606 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "POST /api/server/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47606 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47618 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47642 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50972 - "POST /api/server/stop HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:50974 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /assets/index-CD3FZ5Jo.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /assets/index-SSK4O96v.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50996 - "WebSocket /ws/server" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50992 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:26:35,529 INFO backend.app.services.process_manager process start iperf_server pid=75086
+INFO:     127.0.0.1:50976 - "POST /api/server/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:26:36,436 INFO backend.app.services.iperf_runner experiment start uuid=f215c8eb-c40a-42d1-8a13-af1b4c89c5b9 target=127.0.0.1 protocol=udp
+2026-10-01 13:26:36,445 INFO backend.app.services.iperf_runner profile stage experiment=f215c8eb-c40a-42d1-8a13-af1b4c89c5b9 stage=0 session=118e438a-3623-4bd7-afa7-5921db487954
+INFO:     127.0.0.1:50974 - "POST /api/tests/start HTTP/1.1" 200 OK
+2026-10-01 13:26:36,449 INFO backend.app.services.process_manager process start iperf_client_11 pid=75100
+INFO:     127.0.0.1:50974 - "GET /api/experiments/11 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51006 - "WebSocket /ws/experiments/11" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50976 - "GET /api/experiments/11 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/experiments/11 HTTP/1.1" 200 OK
+2026-10-01 13:26:37,460 INFO backend.app.services.iperf_runner experiment completed uuid=f215c8eb-c40a-42d1-8a13-af1b4c89c5b9
+2026-10-01 13:26:37,473 INFO backend.app.services.process_manager process start iperf_server pid=75122
+INFO:     127.0.0.1:50976 - "GET /api/experiments/11 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:50974 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/status HTTP/1.1" 200 OK
+2026-10-01 13:26:37,893 INFO backend.app.main export experiment=11 format=csv
+INFO:     127.0.0.1:50976 - "GET /api/experiments/11/export/csv HTTP/1.1" 200 OK
+2026-10-01 13:26:37,943 INFO backend.app.main export experiment=11 format=json
+INFO:     127.0.0.1:50976 - "GET /api/experiments/11/export/json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/experiments/11/raw HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "POST /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "POST /api/server/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50974 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50986 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50992 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50976 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:45268 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46242 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-10-01 13:34:20,309 INFO backend.app.main application stop
+INFO:     Application shutdown complete.
+INFO:     Finished server process [72841]
+/home/paulo/lanceMetrics/.venv/lib/python3.12/site-packages/uvicorn/protocols/websockets/websockets_impl.py:41: UvicornDeprecationWarning: The `websockets` implementation is deprecated, and `--ws websockets` will point at the `websockets-sansio` implementation in a future release. Use `--ws websockets-sansio` or `--ws auto` to switch now.
+  warnings.warn(
+INFO:     Started server process [78123]
+INFO:     Waiting for application startup.
+2026-10-01 13:34:21,384 INFO backend.app.main application start version=0.1.0
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     127.0.0.1:43516 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /assets/index-SSK4O96v.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /assets/index-vRL95ZAg.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43558 - "WebSocket /ws/server" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:43540 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/status HTTP/1.1" 200 OK
+2026-10-01 13:34:24,724 INFO backend.app.services.process_manager process start iperf_server pid=78366
+INFO:     127.0.0.1:43534 - "POST /api/server/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:34:25,654 INFO backend.app.services.iperf_runner experiment start uuid=79da7f75-4034-40bc-8f8b-4d746ebfb1c1 target=127.0.0.1 protocol=udp
+2026-10-01 13:34:25,663 INFO backend.app.services.iperf_runner profile stage experiment=79da7f75-4034-40bc-8f8b-4d746ebfb1c1 stage=0 session=4c0d6dab-c0b2-4cf3-bb53-8366746c93a0
+INFO:     127.0.0.1:43522 - "POST /api/tests/start HTTP/1.1" 200 OK
+2026-10-01 13:34:25,669 INFO backend.app.services.process_manager process start iperf_client_13 pid=78392
+INFO:     127.0.0.1:43522 - "GET /api/experiments/13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43572 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43572 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/experiments/13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/status HTTP/1.1" 200 OK
+2026-10-01 13:34:27,685 INFO backend.app.services.iperf_runner experiment completed uuid=79da7f75-4034-40bc-8f8b-4d746ebfb1c1
+2026-10-01 13:34:27,697 INFO backend.app.services.process_manager process start iperf_server pid=78433
+INFO:     127.0.0.1:43534 - "GET /api/experiments/13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:34:29,101 INFO backend.app.services.iperf_runner experiment start uuid=c151097c-a8f9-4971-bcf2-7532bf733ebd target=127.0.0.1 protocol=udp
+2026-10-01 13:34:29,110 INFO backend.app.services.iperf_runner profile stage experiment=c151097c-a8f9-4971-bcf2-7532bf733ebd stage=0 session=4b0ea428-c7d9-44fa-a16f-5a8582ad7dfa
+INFO:     127.0.0.1:43544 - "POST /api/tests/start HTTP/1.1" 200 OK
+2026-10-01 13:34:29,114 INFO backend.app.services.process_manager process start iperf_client_15 pid=78448
+INFO:     127.0.0.1:43544 - "GET /api/experiments/15 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/experiments/15 HTTP/1.1" 200 OK
+2026-10-01 13:34:29,399 INFO backend.app.services.iperf_runner experiment stopped uuid=c151097c-a8f9-4971-bcf2-7532bf733ebd
+INFO:     127.0.0.1:43544 - "POST /api/tests/15/stop HTTP/1.1" 200 OK
+2026-10-01 13:34:29,413 INFO backend.app.services.process_manager process start iperf_server pid=78459
+INFO:     127.0.0.1:43522 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "POST /api/server/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43540 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43544 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43534 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43582 - "POST /api/server/stop HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:48770 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48778 - "GET /assets/index-SSK4O96v.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48770 - "GET /assets/index-vRL95ZAg.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48770 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48784 - "WebSocket /ws/server" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:48812 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48800 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48770 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48778 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48812 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48800 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48770 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48778 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:48818 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /assets/index-vRL95ZAg.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /assets/index-SSK4O96v.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48850 - "WebSocket /ws/server" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:48848 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+2026-10-01 13:34:32,809 INFO backend.app.services.process_manager process start iperf_server pid=78599
+INFO:     127.0.0.1:48818 - "POST /api/server/start HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:34:33,719 INFO backend.app.services.iperf_runner experiment start uuid=db9f0791-06de-4873-8a6b-f1423f66bc2f target=127.0.0.1 protocol=udp
+2026-10-01 13:34:33,729 INFO backend.app.services.iperf_runner profile stage experiment=db9f0791-06de-4873-8a6b-f1423f66bc2f stage=0 session=75cde60d-41f0-4838-b66c-7c2f35a23a47
+INFO:     127.0.0.1:48834 - "POST /api/tests/start HTTP/1.1" 200 OK
+2026-10-01 13:34:33,733 INFO backend.app.services.process_manager process start iperf_client_17 pid=78623
+INFO:     127.0.0.1:48834 - "GET /api/experiments/17 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48862 - "WebSocket /ws/experiments/17" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:48818 - "GET /api/experiments/17 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/experiments/17 HTTP/1.1" 200 OK
+2026-10-01 13:34:34,749 INFO backend.app.services.iperf_runner experiment completed uuid=db9f0791-06de-4873-8a6b-f1423f66bc2f
+2026-10-01 13:34:34,762 INFO backend.app.services.process_manager process start iperf_server pid=78632
+INFO:     127.0.0.1:48818 - "GET /api/experiments/17 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/system HTTP/1.1" 200 OK
+2026-10-01 13:34:35,174 INFO backend.app.main export experiment=17 format=csv
+INFO:     127.0.0.1:48834 - "GET /api/experiments/17/export/csv HTTP/1.1" 200 OK
+2026-10-01 13:34:35,224 INFO backend.app.main export experiment=17 format=json
+INFO:     127.0.0.1:48834 - "GET /api/experiments/17/export/json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/experiments/17/raw HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "POST /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "POST /api/server/stop HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48834 - "GET /api/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48848 - "GET /api/experiments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48818 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48840 - "GET /api/system HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:39862 - "GET /api/status HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-10-01 13:39:00,937 INFO backend.app.main application stop
+INFO:     Application shutdown complete.
+INFO:     Finished server process [78123]
+/home/paulo/lanceMetrics/.venv/lib/python3.12/site-packages/uvicorn/protocols/websockets/websockets_impl.py:41: UvicornDeprecationWarning: The `websockets` implementation is deprecated, and `--ws websockets` will point at the `websockets-sansio` implementation in a future release. Use `--ws websockets-sansio` or `--ws auto` to switch now.
+  warnings.warn(
+INFO:     Started server process [80378]
+INFO:     Waiting for application startup.
+2026-10-01 13:39:02,023 INFO backend.app.main application start version=0.1.0
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     127.0.0.1:39926 - "GET /health HTTP/1.1" 200 OK

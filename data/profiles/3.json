@@ -1,0 +1,14 @@
+{
+  "name": "Variable UDP Test",
+  "protocol": "udp",
+  "intervals": [
+    {
+      "duration": 10,
+      "bandwidth_mbps": 10.0
+    },
+    {
+      "duration": 10,
+      "bandwidth_mbps": 10.0
+    }
+  ]
+}

@@ -129,3 +129,49 @@ def test_occupied_port_and_duplicate_server():
         assert c.post('/api/server/start',headers=headers,json={'address':'127.0.0.1','port':port}).status_code==200
         assert c.post('/api/server/start',headers=headers,json={'address':'127.0.0.1','port':port}).status_code==409
         c.post('/api/server/stop',headers=headers,json={})
+
+def test_setup_failure_is_terminal(monkeypatch):
+    from backend.app.main import runner
+    from backend.app import services
+    from backend.app.services import iperf_runner
+    headers={'Authorization':'Bearer '+TOKEN}
+    monkeypatch.setattr(iperf_runner,'system_info',lambda: {'hostname':'lab'})
+    original=iperf_runner.system_info
+    with TestClient(app) as c:
+        def broken(): raise OSError('experiment environment unavailable')
+        # start succeeds, then failure occurs while saving run configuration.
+        calls=[0]
+        def fail_after_start():
+            calls[0]+=1
+            return original() if calls[0]==1 else broken()
+        monkeypatch.setattr(iperf_runner,'system_info',fail_after_start)
+        e=c.post('/api/tests/start',headers=headers,json={'target':'localhost','duration':1}).json()
+        for _ in range(50):
+            result=c.get('/api/experiments/'+str(e['id']),headers=headers).json()
+            if result['status']!='RUNNING':break
+            time.sleep(.02)
+        assert result['status']=='ERROR'
+        assert c.post(f'/api/tests/{e["id"]}/stop',headers=headers,json={}).status_code==200
+
+def test_stop_recovers_orphan_running_record():
+    from backend.app.services.iperf_runner import now
+    import uuid
+    with TestClient(app) as c:
+        with Session() as db:
+            e=Experiment(uuid=str(uuid.uuid4()),name='Orphan record',status='RUNNING',created_at=now(),config={},environment={},summary={},sessions=[])
+            db.add(e);db.commit();id=e.id
+        result=c.post(f'/api/tests/{id}/stop',headers={'Authorization':'Bearer '+TOKEN},json={})
+        assert result.status_code==200 and result.json()['status']=='STOPPED'
+
+def test_stop_before_coroutine_starts():
+    from backend.app.main import runner
+    from backend.app.services.iperf_runner import now
+    import uuid
+    async def check():
+        with Session() as db:
+            e=Experiment(uuid=str(uuid.uuid4()),name='Immediate stop',status='RUNNING',created_at=now(),config={},environment={},summary={},sessions=[])
+            db.add(e);db.commit();id=e.id
+        runner.tasks[id]=asyncio.create_task(asyncio.sleep(60))
+        await asyncio.gather(runner.stop(id),runner.stop(id))
+        with Session() as db:assert db.get(Experiment,id).status=='STOPPED'
+    asyncio.run(check())
