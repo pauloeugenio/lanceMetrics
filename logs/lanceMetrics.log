@@ -123,3 +123,7 @@
 2026-10-01 14:07:01,363 INFO backend.app.main export experiment=34 format=json
 2026-10-01 14:08:55,369 INFO backend.app.main application stop
 2026-10-01 14:08:56,694 INFO backend.app.main application start version=0.1.0
+2026-10-01 14:14:16,085 INFO backend.app.services.iperf_runner experiment start uuid=b168c289-5614-4d2d-9ef2-61a8cbfc5bd0 target=192.168.150.2 protocol=udp
+2026-10-01 14:14:16,093 INFO backend.app.services.iperf_runner profile stage experiment=b168c289-5614-4d2d-9ef2-61a8cbfc5bd0 stage=0 session=07b9294c-3f17-4e88-a67e-50230b9230fd
+2026-10-01 14:14:16,098 INFO backend.app.services.process_manager process start iperf_client_36 pid=96804
+2026-10-01 14:14:37,777 INFO backend.app.services.iperf_runner experiment completed uuid=b168c289-5614-4d2d-9ef2-61a8cbfc5bd0
