@@ -93,6 +93,8 @@ No clock synchronization is assumed; no one-way delay is calculated. Jitter is r
 
 The MVP has no remote peer control, dataset replay, dark theme, per-stream/congestion dashboard, or server-generated PDF. Plotly uses a relatively large local bundle (~5 MB uncompressed); Vite reports a bundle-size warning, which does not prevent builds. Starlette currently emits a deprecation warning about its httpx test-client adapter; API tests still pass. macOS support is implemented but needs native acceptance testing. Deployment is intended for trusted laboratory networks: token-protected HTTP is unencrypted; use TLS for untrusted environments. Full validation on two physical hosts is still required.
 
-## Parar pela interface web
+## Logo, parada pelo script e acompanhamento
 
-Em **System**, clique em **Parar aplicação web** e confirme. O serviço web e os processos iperf gerenciados serão encerrados; dados brutos e resultados já armazenados permanecem no disco. A página exibe instruções para reiniciar pelo menu `./lanceMetrics` ([2]) ou por `./start.sh`. A operação exige o token de acesso e recusa chamadas de outra origem.
+O logo usa a imagem original fornecida no login e na barra lateral. Para encerrar o servidor web, abra `./lanceMetrics` e escolha **[3] Stop Web Interface / Parar servidor web**, ou execute `./lanceMetrics stop-web` (`./stop.sh` continua funcionando). A parada também encerra os processos iperf gerenciados. Fechar o navegador ou sair do menu não encerra o serviço. Reinicie com a opção [2] ou `./start.sh`.
+
+Durante um teste, o dashboard e os detalhes mostram **TESTE EM EXECUÇÃO**, tempo decorrido, duração programada, estágio, destino/protocolo e progresso do tempo programado. Conexão, transições e coleta de resultados podem ampliar a duração total. A barra é um acompanhamento visual, não uma métrica de throughput. Versões de iperf sem JSON streaming mantêm TX/RX/jitter/perda como N/A até receberem resultados estruturados.

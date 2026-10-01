@@ -23,3 +23,7 @@ For repeatable commands and research limitations, see README.md and METRICS.md.
 ## Web application stop button — 2026-10-01
 
 34 backend tests passed, including authenticated/idempotent shutdown and a real isolated uvicorn shutdown during an active UDP run with an open experiment WebSocket. Server/client process records were cleaned, the stopped experiment persisted, and shutdown completed within the 10-second test deadline. Three Chrome workflows passed, including confirmation cancellation/acceptance and restart instructions (the browser test mocks the shutdown reply to keep its shared server available). The isolated backend integration test executes the actual stop operation.
+
+## Logo and execution feedback — 2026-10-01
+
+36 backend tests and 4 Chrome workflows passed. Original JPEG loaded in login/sidebar; elapsed timer advanced during a real UDP run in details and dashboard; STOP TEST removed the execution indicator. System now directs web shutdown to the script. The stop-web CLI dispatches stop.sh; a real stop/start verification confirmed that HTTP stopped responding and then recovered. Production build passed.

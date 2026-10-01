@@ -1,0 +1,284 @@
+{
+  "experiment": {
+    "id": 21,
+    "uuid": "0fd2942a-366a-43a5-87bb-7b8c9d76e73f",
+    "name": "Server observation",
+    "status": "COMPLETED",
+    "created_at": "2026-10-01T17:02:11.208477+00:00",
+    "started_at": "2026-10-01T17:02:11.208477+00:00",
+    "finished_at": "2026-10-01T17:02:13.871284+00:00",
+    "config": {
+      "mode": "server",
+      "protocol": "udp",
+      "port": 41463,
+      "connections": [
+        {
+          "socket": 5,
+          "local_host": "127.0.0.1",
+          "local_port": 41463,
+          "remote_host": "127.0.0.1",
+          "remote_port": 57790
+        }
+      ],
+      "peer_session_id": null
+    },
+    "environment": {
+      "application_version": "0.1.0",
+      "os": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+      "kernel": "6.14.0-37-generic",
+      "architecture": "x86_64",
+      "hostname": "paulo-lance",
+      "python": "3.12.3",
+      "timezone": "-03",
+      "interfaces": [
+        {
+          "interface": "lo",
+          "ip": "127.0.0.1",
+          "state": "UP"
+        },
+        {
+          "interface": "lo",
+          "ip": "::1",
+          "state": "UP"
+        },
+        {
+          "interface": "enp1s0",
+          "ip": "192.168.110.144",
+          "state": "UP"
+        },
+        {
+          "interface": "wlp2s0",
+          "ip": "192.168.150.220",
+          "state": "UP"
+        },
+        {
+          "interface": "wlp2s0",
+          "ip": "fe80::cfb0:6dba:a0f:fa95%wlp2s0",
+          "state": "UP"
+        },
+        {
+          "interface": "tailscale0",
+          "ip": "100.116.5.38",
+          "state": "UP"
+        },
+        {
+          "interface": "tailscale0",
+          "ip": "fd7a:115c:a1e0::ce33:527",
+          "state": "UP"
+        },
+        {
+          "interface": "tailscale0",
+          "ip": "fe80::9bce:f3fd:9892:3f12%tailscale0",
+          "state": "UP"
+        },
+        {
+          "interface": "br-7379795b7ec8",
+          "ip": "172.22.0.1",
+          "state": "DOWN"
+        },
+        {
+          "interface": "docker0",
+          "ip": "172.17.0.1",
+          "state": "DOWN"
+        }
+      ],
+      "iperf": {
+        "installed": true,
+        "version": "iperf 3.16 (cJSON 1.7.15)",
+        "json_stream": false
+      }
+    },
+    "summary": {
+      "sender_bps": null,
+      "receiver_bps": 17295900.128358413,
+      "sender_bytes": null,
+      "receiver_bytes": 2162688,
+      "packets_sent": null,
+      "packets_received": 66,
+      "packets_lost": 0,
+      "loss_percent": 0,
+      "jitter_ms": 0.03358650061449747,
+      "retransmissions": null
+    },
+    "sessions": [
+      {
+        "session_id": "25bec78b-ed46-4275-8694-b7ac2eb69f17",
+        "stage_id": 0
+      }
+    ],
+    "error": null
+  },
+  "iperf": {
+    "start": {
+      "connected": [
+        {
+          "socket": 5,
+          "local_host": "127.0.0.1",
+          "local_port": 41463,
+          "remote_host": "127.0.0.1",
+          "remote_port": 57790
+        }
+      ],
+      "version": "iperf 3.16",
+      "system_info": "Linux paulo-lance 6.14.0-37-generic #37~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 10:25:38 UTC 2 x86_64",
+      "target_bitrate": 10000000,
+      "timestamp": {
+        "time": "Thu, 01 Oct 2026 17:02:12 GMT",
+        "timesecs": 1790874132
+      },
+      "accepted_connection": {
+        "host": "127.0.0.1",
+        "port": 47854
+      },
+      "cookie": "3fck4raff5tmsjwodee3i3df6c5jrevma6rk",
+      "fq_rate": 0,
+      "sock_bufsize": 0,
+      "sndbuf_actual": 212992,
+      "rcvbuf_actual": 212992,
+      "test_start": {
+        "protocol": "UDP",
+        "num_streams": 1,
+        "blksize": 32768,
+        "omit": 0,
+        "duration": 30,
+        "bytes": 0,
+        "blocks": 0,
+        "reverse": 0,
+        "tos": 0,
+        "target_bitrate": 10000000,
+        "bidir": 0,
+        "fqrate": 0
+      }
+    },
+    "intervals": [
+      {
+        "streams": [
+          {
+            "socket": 5,
+            "start": 0,
+            "end": 1.000324,
+            "seconds": 1.000324010848999,
+            "bytes": 1277952,
+            "bits_per_second": 10220304.510458538,
+            "jitter_ms": 0.01631876761069599,
+            "lost_packets": 0,
+            "packets": 39,
+            "lost_percent": 0,
+            "omitted": false,
+            "sender": false
+          }
+        ],
+        "sum": {
+          "start": 0,
+          "end": 1.000324,
+          "seconds": 1.000324010848999,
+          "bytes": 1277952,
+          "bits_per_second": 10220304.510458538,
+          "jitter_ms": 0.01631876761069599,
+          "lost_packets": 0,
+          "packets": 39,
+          "lost_percent": 0,
+          "omitted": false,
+          "sender": false
+        }
+      },
+      {
+        "streams": [
+          {
+            "socket": 5,
+            "start": 0,
+            "end": 1.000324,
+            "seconds": 1.000324010848999,
+            "bytes": 1277952,
+            "bits_per_second": 10220304.510458538,
+            "jitter_ms": 0.01631876761069599,
+            "lost_packets": 0,
+            "packets": 39,
+            "lost_percent": 0,
+            "omitted": false,
+            "sender": false
+          }
+        ],
+        "sum": {
+          "start": 0,
+          "end": 1.000324,
+          "seconds": 1.000324010848999,
+          "bytes": 1277952,
+          "bits_per_second": 10220304.510458538,
+          "jitter_ms": 0.01631876761069599,
+          "lost_packets": 0,
+          "packets": 39,
+          "lost_percent": 0,
+          "omitted": false,
+          "sender": false
+        }
+      }
+    ],
+    "end": {
+      "streams": [
+        {
+          "udp": {
+            "socket": 5,
+            "start": 0,
+            "end": 1.000324,
+            "seconds": 1.000324,
+            "bytes": 0,
+            "bits_per_second": 0,
+            "jitter_ms": 0.03358650061449747,
+            "lost_packets": 0,
+            "packets": 66,
+            "lost_percent": 0,
+            "out_of_order": 0,
+            "sender": false
+          }
+        }
+      ],
+      "sum": {
+        "start": 0,
+        "end": 1.000324,
+        "seconds": 1.000324,
+        "bytes": 0,
+        "bits_per_second": 0,
+        "jitter_ms": 0.03358650061449747,
+        "lost_packets": 0,
+        "packets": 66,
+        "lost_percent": 0,
+        "sender": false
+      },
+      "sum_sent": {
+        "start": 0,
+        "end": 1.000324,
+        "seconds": 1.000324,
+        "bytes": 0,
+        "bits_per_second": 0,
+        "jitter_ms": 0,
+        "lost_packets": 0,
+        "packets": 0,
+        "lost_percent": 0,
+        "sender": true
+      },
+      "sum_received": {
+        "start": 0,
+        "end": 1.000324,
+        "seconds": 1.000324,
+        "bytes": 2162688,
+        "bits_per_second": 17295900.128358413,
+        "jitter_ms": 0.03358650061449747,
+        "lost_packets": 0,
+        "packets": 66,
+        "lost_percent": 0,
+        "sender": false
+      },
+      "cpu_utilization_percent": {
+        "host_total": 0.1828157812949306,
+        "host_user": 0.10601804920980246,
+        "host_system": 0.07673964000336934,
+        "remote_total": 0,
+        "remote_user": 0,
+        "remote_system": 0
+      }
+    },
+    "error": "the client has terminated",
+    "extra_data": "f49560e7-d809-45bc-b46d-471f577ca5db"
+  }
+}

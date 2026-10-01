@@ -67,3 +67,59 @@
 2026-10-01 13:34:35,224 INFO backend.app.main export experiment=17 format=json
 2026-10-01 13:39:00,937 INFO backend.app.main application stop
 2026-10-01 13:39:02,023 INFO backend.app.main application start version=0.1.0
+2026-10-01 13:45:07,227 INFO backend.app.services.iperf_runner experiment start uuid=6cc7ce46-7fcd-482d-8613-82437767ae1b target=192.168.150.2 protocol=udp
+2026-10-01 13:45:07,236 INFO backend.app.services.iperf_runner profile stage experiment=6cc7ce46-7fcd-482d-8613-82437767ae1b stage=0 session=7323d706-9406-42a1-b7ba-db0d86b4ca71
+2026-10-01 13:45:07,241 INFO backend.app.services.process_manager process start iperf_client_19 pid=82969
+2026-10-01 13:45:27,318 INFO backend.app.services.iperf_runner experiment completed uuid=6cc7ce46-7fcd-482d-8613-82437767ae1b
+2026-10-01 14:02:11,208 INFO backend.app.services.process_manager process start iperf_server pid=90474
+2026-10-01 14:02:12,119 INFO backend.app.services.iperf_runner experiment start uuid=f14b3562-eca9-4a92-8722-005a1611055e target=127.0.0.1 protocol=udp
+2026-10-01 14:02:12,129 INFO backend.app.services.iperf_runner profile stage experiment=f14b3562-eca9-4a92-8722-005a1611055e stage=0 session=f49560e7-d809-45bc-b46d-471f577ca5db
+2026-10-01 14:02:12,134 INFO backend.app.services.process_manager process start iperf_client_20 pid=90497
+2026-10-01 14:02:13,865 INFO backend.app.services.iperf_runner experiment stopped uuid=f14b3562-eca9-4a92-8722-005a1611055e
+2026-10-01 14:02:13,883 INFO backend.app.services.process_manager process start iperf_server pid=90560
+2026-10-01 14:02:15,475 INFO backend.app.services.process_manager process start iperf_server pid=90644
+2026-10-01 14:02:16,368 INFO backend.app.services.iperf_runner experiment start uuid=369905f1-d8f6-40fa-b0b3-a523365a5221 target=127.0.0.1 protocol=udp
+2026-10-01 14:02:16,376 INFO backend.app.services.iperf_runner profile stage experiment=369905f1-d8f6-40fa-b0b3-a523365a5221 stage=0 session=a978f00e-7932-44f9-a51f-acdd7393a134
+2026-10-01 14:02:16,380 INFO backend.app.services.process_manager process start iperf_client_22 pid=90667
+2026-10-01 14:02:18,397 INFO backend.app.services.iperf_runner experiment completed uuid=369905f1-d8f6-40fa-b0b3-a523365a5221
+2026-10-01 14:02:18,408 INFO backend.app.services.process_manager process start iperf_server pid=90721
+2026-10-01 14:02:19,834 INFO backend.app.services.iperf_runner experiment start uuid=d50438bc-1cd3-4704-9f72-325e79e4f0f5 target=127.0.0.1 protocol=udp
+2026-10-01 14:02:19,843 INFO backend.app.services.iperf_runner profile stage experiment=d50438bc-1cd3-4704-9f72-325e79e4f0f5 stage=0 session=be45c5cb-a4a2-43a2-9352-82ff74dacf4e
+2026-10-01 14:02:19,846 INFO backend.app.services.process_manager process start iperf_client_24 pid=90757
+2026-10-01 14:02:20,116 INFO backend.app.services.iperf_runner experiment stopped uuid=d50438bc-1cd3-4704-9f72-325e79e4f0f5
+2026-10-01 14:02:20,132 INFO backend.app.services.process_manager process start iperf_server pid=90767
+2026-10-01 14:02:23,840 INFO backend.app.services.process_manager process start iperf_server pid=90915
+2026-10-01 14:02:24,749 INFO backend.app.services.iperf_runner experiment start uuid=d6a57517-c2dc-433b-a6db-1ccbaa65fff5 target=127.0.0.1 protocol=udp
+2026-10-01 14:02:24,759 INFO backend.app.services.iperf_runner profile stage experiment=d6a57517-c2dc-433b-a6db-1ccbaa65fff5 stage=0 session=5b5d053b-4579-405f-80e3-27bf608fc0cf
+2026-10-01 14:02:24,763 INFO backend.app.services.process_manager process start iperf_client_26 pid=90951
+2026-10-01 14:02:25,776 INFO backend.app.services.iperf_runner experiment completed uuid=d6a57517-c2dc-433b-a6db-1ccbaa65fff5
+2026-10-01 14:02:25,789 INFO backend.app.services.process_manager process start iperf_server pid=90965
+2026-10-01 14:02:26,207 INFO backend.app.main export experiment=26 format=csv
+2026-10-01 14:02:26,275 INFO backend.app.main export experiment=26 format=json
+2026-10-01 14:06:46,115 INFO backend.app.services.process_manager process start iperf_server pid=93064
+2026-10-01 14:06:47,069 INFO backend.app.services.iperf_runner experiment start uuid=35478d6d-2f3f-4da0-95f7-31c909534115 target=127.0.0.1 protocol=udp
+2026-10-01 14:06:47,083 INFO backend.app.services.iperf_runner profile stage experiment=35478d6d-2f3f-4da0-95f7-31c909534115 stage=0 session=378792b1-38ac-422d-bd49-53c3c33d3b11
+2026-10-01 14:06:47,087 INFO backend.app.services.process_manager process start iperf_client_28 pid=93110
+2026-10-01 14:06:48,899 INFO backend.app.services.iperf_runner experiment stopped uuid=35478d6d-2f3f-4da0-95f7-31c909534115
+2026-10-01 14:06:48,919 INFO backend.app.services.process_manager process start iperf_server pid=93167
+2026-10-01 14:06:50,684 INFO backend.app.services.process_manager process start iperf_server pid=93243
+2026-10-01 14:06:51,588 INFO backend.app.services.iperf_runner experiment start uuid=9bbd35ba-bea3-4613-bf6a-3168bf113ef2 target=127.0.0.1 protocol=udp
+2026-10-01 14:06:51,599 INFO backend.app.services.iperf_runner profile stage experiment=9bbd35ba-bea3-4613-bf6a-3168bf113ef2 stage=0 session=5068af0e-7036-4d76-8adb-ed2ea64b3de3
+2026-10-01 14:06:51,603 INFO backend.app.services.process_manager process start iperf_client_30 pid=93276
+2026-10-01 14:06:53,621 INFO backend.app.services.iperf_runner experiment completed uuid=9bbd35ba-bea3-4613-bf6a-3168bf113ef2
+2026-10-01 14:06:53,633 INFO backend.app.services.process_manager process start iperf_server pid=93325
+2026-10-01 14:06:55,175 INFO backend.app.services.iperf_runner experiment start uuid=fab95363-f54a-4804-ad00-89c7d13de4b3 target=127.0.0.1 protocol=udp
+2026-10-01 14:06:55,185 INFO backend.app.services.iperf_runner profile stage experiment=fab95363-f54a-4804-ad00-89c7d13de4b3 stage=0 session=489e3d11-67b5-414a-b069-7e75bdb9f32f
+2026-10-01 14:06:55,191 INFO backend.app.services.process_manager process start iperf_client_32 pid=93358
+2026-10-01 14:06:55,423 INFO backend.app.services.iperf_runner experiment stopped uuid=fab95363-f54a-4804-ad00-89c7d13de4b3
+2026-10-01 14:06:55,435 INFO backend.app.services.process_manager process start iperf_server pid=93368
+2026-10-01 14:06:58,931 INFO backend.app.services.process_manager process start iperf_server pid=93524
+2026-10-01 14:06:59,843 INFO backend.app.services.iperf_runner experiment start uuid=78c3da86-9b73-41bb-811f-7c3b1b6cc0bc target=127.0.0.1 protocol=udp
+2026-10-01 14:06:59,853 INFO backend.app.services.iperf_runner profile stage experiment=78c3da86-9b73-41bb-811f-7c3b1b6cc0bc stage=0 session=81af9fd4-f8e6-4c6e-bcc1-e9770e31e1a9
+2026-10-01 14:06:59,859 INFO backend.app.services.process_manager process start iperf_client_34 pid=93551
+2026-10-01 14:07:00,875 INFO backend.app.services.iperf_runner experiment completed uuid=78c3da86-9b73-41bb-811f-7c3b1b6cc0bc
+2026-10-01 14:07:00,889 INFO backend.app.services.process_manager process start iperf_server pid=93562
+2026-10-01 14:07:01,315 INFO backend.app.main export experiment=34 format=csv
+2026-10-01 14:07:01,363 INFO backend.app.main export experiment=34 format=json
+2026-10-01 14:08:55,369 INFO backend.app.main application stop
+2026-10-01 14:08:56,694 INFO backend.app.main application start version=0.1.0

@@ -1,0 +1,12 @@
+import {test,expect} from '@playwright/test';
+import fs from 'node:fs';import net from 'node:net';
+async function freePort():Promise<number>{return await new Promise(resolve=>{const s=net.createServer();s.listen(0,'127.0.0.1',()=>{const p=(s.address() as net.AddressInfo).port;s.close(()=>resolve(p))})})}
+test.afterEach(async({request})=>{await request.post('/api/server/stop',{headers:{Authorization:'Bearer '+fs.readFileSync('../run/access.token','utf8').trim()},data:{}})});
+test('original logo and visible running test timer on details and dashboard',async({page})=>{
+ await page.goto('/');await expect(page.getByAltText('LANCE')).toBeVisible();expect(await page.getByAltText('LANCE').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);
+ await page.getByLabel('Access token').fill(fs.readFileSync('../run/access.token','utf8').trim());await page.getByRole('button',{name:'Connect',exact:true}).click();await expect(page.getByAltText('LANCE')).toBeVisible();
+ await page.getByRole('button',{name:'Server',exact:true}).click();const port=await freePort();await page.getByLabel('Listen address').fill('127.0.0.1');await page.getByLabel('Port',{exact:true}).fill(String(port));await page.getByRole('button',{name:'START SERVER',exact:true}).click();await expect(page.locator('.section-top .badge')).toHaveText('RUNNING');
+ await page.getByRole('button',{name:'New Experiment',exact:true}).click();await page.getByLabel('Experiment name').fill('Visual execution validation');await page.getByLabel('Target IP / hostname').fill('127.0.0.1');await page.getByLabel('Port',{exact:true}).fill(String(port));await page.getByLabel('Duration (s)',{exact:true}).fill('30');await page.getByRole('button',{name:'START TEST',exact:true}).click();
+ await expect(page.getByRole('status',{name:'Acompanhamento do teste'})).toBeVisible();const before=await page.getByTestId('elapsed-time').textContent();await expect(page.getByTestId('elapsed-time')).not.toHaveText(before||'',{timeout:5000});await expect(page.getByRole('progressbar',{name:'Progresso programado do teste'})).toBeVisible();
+ await page.screenshot({path:'../docs/execution.png',fullPage:true});await page.getByRole('button',{name:'Dashboard',exact:true}).click();await expect(page.getByRole('status',{name:'Acompanhamento do teste'})).toBeVisible();await page.getByRole('button',{name:'STOP TEST',exact:true}).click();await expect(page.getByRole('status',{name:'Acompanhamento do teste'})).toHaveCount(0,{timeout:10000});
+});

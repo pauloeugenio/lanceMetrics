@@ -1,0 +1,237 @@
+{
+  "id": 22,
+  "uuid": "369905f1-d8f6-40fa-b0b3-a523365a5221",
+  "name": "Dashboard completion regression 1790874136265",
+  "status": "COMPLETED",
+  "created_at": "2026-10-01T17:02:16.360849+00:00",
+  "started_at": "2026-10-01T17:02:16.360865+00:00",
+  "finished_at": "2026-10-01T17:02:18.395333+00:00",
+  "config": {
+    "name": "Dashboard completion regression 1790874136265",
+    "description": "",
+    "target": "127.0.0.1",
+    "port": 41471,
+    "protocol": "udp",
+    "duration": 2,
+    "report_interval": 1.0,
+    "bandwidth_mbps": 10.0,
+    "parallel_streams": 1,
+    "reverse_mode": false,
+    "datagram_length": null,
+    "profile_id": null,
+    "traffic_profile": null,
+    "source_host": "paulo-lance",
+    "destination_host": "127.0.0.1",
+    "total_duration": 2
+  },
+  "environment": {
+    "application_version": "0.1.0",
+    "os": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+    "kernel": "6.14.0-37-generic",
+    "architecture": "x86_64",
+    "hostname": "paulo-lance",
+    "python": "3.12.3",
+    "timezone": "-03",
+    "interfaces": [
+      {
+        "interface": "lo",
+        "ip": "127.0.0.1",
+        "state": "UP"
+      },
+      {
+        "interface": "lo",
+        "ip": "::1",
+        "state": "UP"
+      },
+      {
+        "interface": "enp1s0",
+        "ip": "192.168.110.144",
+        "state": "UP"
+      },
+      {
+        "interface": "wlp2s0",
+        "ip": "192.168.150.220",
+        "state": "UP"
+      },
+      {
+        "interface": "wlp2s0",
+        "ip": "fe80::cfb0:6dba:a0f:fa95%wlp2s0",
+        "state": "UP"
+      },
+      {
+        "interface": "tailscale0",
+        "ip": "100.116.5.38",
+        "state": "UP"
+      },
+      {
+        "interface": "tailscale0",
+        "ip": "fd7a:115c:a1e0::ce33:527",
+        "state": "UP"
+      },
+      {
+        "interface": "tailscale0",
+        "ip": "fe80::9bce:f3fd:9892:3f12%tailscale0",
+        "state": "UP"
+      },
+      {
+        "interface": "br-7379795b7ec8",
+        "ip": "172.22.0.1",
+        "state": "DOWN"
+      },
+      {
+        "interface": "docker0",
+        "ip": "172.17.0.1",
+        "state": "DOWN"
+      }
+    ],
+    "iperf": {
+      "installed": true,
+      "version": "iperf 3.16 (cJSON 1.7.15)",
+      "json_stream": false
+    }
+  },
+  "summary": {
+    "sender_bps": 10090914.317337751,
+    "receiver_bps": 10090510.76208144,
+    "sender_bytes": 2523136,
+    "receiver_bytes": 2523136,
+    "packets_sent": 77,
+    "packets_received": 77,
+    "packets_lost": 0,
+    "loss_percent": 0.0,
+    "jitter_ms": 0.012229116434438447,
+    "retransmissions": null
+  },
+  "sessions": [
+    {
+      "stage_id": 0,
+      "session_id": "a978f00e-7932-44f9-a51f-acdd7393a134",
+      "started_at": "2026-10-01T17:02:16.373321+00:00",
+      "offset_seconds": 0.004412891999891144,
+      "command": [
+        "iperf3",
+        "-c",
+        "127.0.0.1",
+        "-p",
+        "41471",
+        "-t",
+        "2",
+        "-i",
+        "1.0",
+        "-P",
+        "1",
+        "--connect-timeout",
+        "5000",
+        "--get-server-output",
+        "--extra-data",
+        "a978f00e-7932-44f9-a51f-acdd7393a134",
+        "-J",
+        "-u",
+        "-b",
+        "10000000"
+      ],
+      "target_bps": 10000000.0,
+      "finished_at": "2026-10-01T17:02:18.393520+00:00",
+      "summary": {
+        "sender_bps": 10090914.317337751,
+        "receiver_bps": 10090510.76208144,
+        "sender_bytes": 2523136,
+        "receiver_bytes": 2523136,
+        "packets_sent": 77,
+        "packets_received": 77,
+        "packets_lost": 0,
+        "loss_percent": 0,
+        "jitter_ms": 0.012229116434438447,
+        "retransmissions": null
+      },
+      "actual_seconds": 2.0202105280004616
+    }
+  ],
+  "error": null,
+  "measurements": [
+    {
+      "sender_bps": 10222870.17941215,
+      "receiver_bps": null,
+      "sender_bytes": 1277952,
+      "receiver_bytes": null,
+      "packets_sent": 39,
+      "packets_received": null,
+      "packets_lost": null,
+      "loss_percent": null,
+      "jitter_ms": null,
+      "retransmissions": null,
+      "elapsed_time": 1.0044858919998911,
+      "interval_start": 0,
+      "seconds": 1.000072956085205,
+      "metric_source": "iperf_interval_sender",
+      "stage_id": 0,
+      "session_id": "a978f00e-7932-44f9-a51f-acdd7393a134",
+      "target_bps": 10000000.0,
+      "timestamp": "2026-10-01T17:02:17.373394+00:00",
+      "timestamp_basis": "local_session_start_plus_iperf_elapsed"
+    },
+    {
+      "sender_bps": 9958982.43484618,
+      "receiver_bps": null,
+      "sender_bytes": 1245184,
+      "receiver_bytes": null,
+      "packets_sent": 38,
+      "packets_received": null,
+      "packets_lost": null,
+      "loss_percent": null,
+      "jitter_ms": null,
+      "retransmissions": null,
+      "elapsed_time": 2.004735891999891,
+      "interval_start": 1.000073,
+      "seconds": 1.000249981880188,
+      "metric_source": "iperf_interval_sender",
+      "stage_id": 0,
+      "session_id": "a978f00e-7932-44f9-a51f-acdd7393a134",
+      "target_bps": 10000000.0,
+      "timestamp": "2026-10-01T17:02:18.373644+00:00",
+      "timestamp_basis": "local_session_start_plus_iperf_elapsed"
+    },
+    {
+      "sender_bps": null,
+      "receiver_bps": 10218660.52812333,
+      "sender_bytes": null,
+      "receiver_bytes": 1277952,
+      "packets_sent": null,
+      "packets_received": 39,
+      "packets_lost": 0,
+      "loss_percent": 0,
+      "jitter_ms": 0.01708862473711289,
+      "retransmissions": null,
+      "elapsed_time": 1.0048978919998912,
+      "interval_start": 0,
+      "seconds": 1.0004849433898926,
+      "metric_source": "iperf_interval_receiver",
+      "stage_id": 0,
+      "session_id": "a978f00e-7932-44f9-a51f-acdd7393a134",
+      "target_bps": 10000000.0,
+      "timestamp": "2026-10-01T17:02:17.373806+00:00",
+      "timestamp_basis": "local_session_start_plus_iperf_elapsed"
+    },
+    {
+      "sender_bps": null,
+      "receiver_bps": 9965477.860250564,
+      "sender_bytes": null,
+      "receiver_bytes": 1245184,
+      "packets_sent": null,
+      "packets_received": 38,
+      "packets_lost": 0,
+      "loss_percent": 0,
+      "jitter_ms": 0.012229116434438447,
+      "retransmissions": null,
+      "elapsed_time": 2.004495891999891,
+      "interval_start": 1.000485,
+      "seconds": 0.9995980262756348,
+      "metric_source": "iperf_interval_receiver",
+      "stage_id": 0,
+      "session_id": "a978f00e-7932-44f9-a51f-acdd7393a134",
+      "target_bps": 10000000.0,
+      "timestamp": "2026-10-01T17:02:18.373404+00:00",
+      "timestamp_basis": "local_session_start_plus_iperf_elapsed"
+    }
+  ]
+}
