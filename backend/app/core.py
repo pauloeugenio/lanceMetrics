@@ -1,6 +1,7 @@
 import os, logging
 from pathlib import Path
 VERSION = '0.1.0'
+AUTH_ENABLED = os.environ.get('LANCE_AUTH_ENABLED','false').lower() in ('1','true','yes','on')
 ROOT = Path(os.environ.get('LANCE_ROOT', Path(__file__).resolve().parents[2]))
 for name in ('data/experiments','data/profiles','logs','run'):
     (ROOT/name).mkdir(parents=True, exist_ok=True)

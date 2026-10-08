@@ -111,3 +111,15 @@ The existing project now supports real FFmpeg video transmission independently o
 Install FFmpeg/ffprobe with `sudo apt-get install -y ffmpeg` on Ubuntu/Debian or `brew install ffmpeg` on macOS; `./install.sh` and Diagnostics check both. Start the Receiver on machine B first, then upload/select videos on Sender A. Concurrent uses ports base/base+2/base+4. Optional Receiver Peer URL/token retrieves correlated RX results; otherwise RX remains N/A at the Sender.
 
 See [VIDEO_STREAMING.md](docs/VIDEO_STREAMING.md) for the complete two-machine workflow, uploads, measurement definitions, APIs, export formats, limits and reproducibility. UDP loss/jitter are N/A; RTP uses sequence observability and RFC3550 jitter. Preview delay and unrelated machine timestamps never establish network one-way latency.
+
+### Vídeo entre servidor e cliente
+
+Use a mesma imagem/container em dois computadores. Em **Video Streaming**, selecione **Servidor · enviar vídeo para outra máquina** na origem e **Cliente · receber e assistir ao vídeo** no destino. Inicie o receptor no cliente, escutando em `0.0.0.0`; no servidor informe o IP do computador cliente, a mesma porta e o mesmo transporte.
+
+A URL HTTP e o token do cliente permitem coordenar sessões e recuperar métricas RX no servidor. **Controlled Bitrate** oferece bitrate, resolução, FPS, quadros-chave e perfis de envio. O cliente mostra o vídeo recebido, métricas e gráficos ao vivo; os resultados podem ser exportados. Use RTP para medir também perda e jitter.
+
+O player possui **Play**, **Pausar** e **Tela cheia**, com visualização de até 8 fps e sem áudio; o fluxo transmitido mantém o FPS configurado e pode incluir áudio. Pausar afeta apenas a visualização. O modo **Servidor + cliente · reprodução local** continua disponível para testes na mesma instância.
+
+Veja o procedimento completo e as portas Docker em [DOCKER.md](DOCKER.md#vídeo-entre-dois-computadores).
+
+A interface abre diretamente por padrão, sem login ou token de coordenação. Para ativar a autenticação opcional, configure `LANCE_AUTH_ENABLED=true` antes de iniciar/recriar a instância.

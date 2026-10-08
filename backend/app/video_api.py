@@ -23,7 +23,7 @@ class CompleteRequest(BaseModel):
     experiment_uuid:UUID
     aborted:bool=False
 
-def video_router(generator,receiver,token):
+def video_router(generator,receiver,token,auth_enabled=True):
     router=APIRouter()
     def record(id):
         e=experiment_data(id)
@@ -120,8 +120,9 @@ def video_router(generator,receiver,token):
     async def preview(ws:WebSocket,port:int):
         await ws.accept()
         try:
-            auth=await asyncio.wait_for(ws.receive_json(),10)
-            if not secrets.compare_digest(str(auth.get('token','')),token):await ws.close(1008);return
+            if auth_enabled:
+                auth=await asyncio.wait_for(ws.receive_json(),10)
+                if not secrets.compare_digest(str(auth.get('token','')),token):await ws.close(1008);return
             previous=None
             while receiver.sockets and port in receiver.sockets:
                 stream=receiver.live.get(port)

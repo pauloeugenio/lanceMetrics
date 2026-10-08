@@ -18,6 +18,10 @@ class VideoConfig(BaseModel):
     preset:Literal['ultrafast','superfast','veryfast']='ultrafast'
     low_latency:bool=True
     target_mbps:float=Field(default=10,gt=0,le=100000,allow_inf_nan=False)
+    resolution:Literal['source','640x360','1280x720','1920x1080']='source'
+    output_fps:int|None=Field(default=None,ge=1,le=120)
+    keyframe_frames:int|None=Field(default=None,ge=1,le=600)
+    include_audio:bool=True
     video_ids:list[UUID]=Field(min_length=1,max_length=100)
     peer_url:str|None=None
     peer_token:str|None=Field(default=None,max_length=256,exclude=True)
@@ -38,7 +42,8 @@ class VideoConfig(BaseModel):
     def queue(self):
         if len(set(self.video_ids))!=len(self.video_ids):raise ValueError('Duplicate video IDs in queue')
         if self.execution_mode=='concurrent' and self.base_port+2*(len(self.video_ids)-1)>65535:raise ValueError('Port allocation exceeds 65535')
-        if self.peer_url and not self.peer_token:raise ValueError('Receiver access token required for peer preparation')
+        if self.encoding_mode=='preserve' and (self.resolution!='source' or self.output_fps is not None or self.keyframe_frames is not None):
+            raise ValueError('Resolution, FPS and keyframe settings require Controlled Bitrate encoding')
         return self
 
 class ReceiverConfig(BaseModel):

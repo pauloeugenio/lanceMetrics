@@ -1,3 +1,5 @@
+> **Acesso atual:** a autenticação fica desativada por padrão. Abra a interface diretamente, sem token. Na coordenação de vídeo, informe somente a URL do cliente; deixe o token vazio. As instruções com tokens abaixo se aplicam quando `LANCE_AUTH_ENABLED=true`.
+
 # LanceMetrics com Docker e GitHub Actions
 
 ## Aplicação analisada
@@ -146,14 +148,15 @@ principal e sair do menu encerra o contêiner.
 | --- | --- | --- |
 | HTTP/API/WebSockets | 8080/TCP | `LANCE_PORT`; `LANCE_BIND=0.0.0.0` |
 | iperf3 | 5201/TCP e UDP | UDP também precisa do canal de controle TCP |
-| Vídeo MPEG-TS UDP ou RTP/UDP | 5000/UDP | Streams concorrentes: 5000, 5002, 5004, … |
+| Vídeo MPEG-TS UDP ou RTP/UDP | 5000–5018/UDP | Streams concorrentes: 5000, 5002, 5004, … |
 | Relays FFmpeg/preview | Portas locais dinâmicas | Loopback interno; não publicar |
 
 Servidores iperf e vídeo são armados pela aplicação, não automaticamente pelo
 Docker. As portas são configuráveis nos formulários (1024–65535); publique as
 portas escolhidas no Compose/run e permita-as no firewall. O Compose publica
-um stream de vídeo; acrescente, por exemplo, `5002:5002/udp` e `5004:5004/udp`
-para três streams. O espaçamento +2 reserva espaço para RTCP futuro; não há
+a faixa `5000-5018/udp`, suficiente para dez streams em portas pares.
+Para outra faixa, defina `LANCE_VIDEO_PORT_RANGE` (ex.: `6000-6018`) e configure
+a mesma porta base no formulário. O espaçamento +2 reserva espaço para RTCP futuro; não há
 necessidade atual de publicar a porta ímpar adjacente.
 
 **NET_RAW, NET_ADMIN e --privileged não são necessários.** O Compose remove
@@ -304,3 +307,31 @@ Compose e sintaxe Bash/YAML foram validados. Build/runtime ARM64 não foram
 executados neste host, que não tem QEMU/binfmt configurado; o workflow está
 preparado para construir ambas as arquiteturas. Publicação no Docker Hub e
 execução no GitHub ainda dependem de configurar os secrets e enviar os arquivos.
+
+## Vídeo entre dois computadores
+
+A mesma imagem funciona como **servidor de vídeo (emissor)** ou **cliente de vídeo (receptor)**. O papel é escolhido na interface, sem imagens ou comandos de inicialização diferentes. Instale uma instância em cada máquina, com volumes próprios.
+
+Exemplo: servidor `192.168.1.10`, cliente `192.168.1.20`. Em ambas as máquinas, execute `docker compose up -d` e obtenha o token com `docker compose exec lancemetrics cat /app/run/access.token`.
+
+1. No cliente, abra `http://192.168.1.20:8080`, entre com o token daquela instância e acesse **Video Streaming → Cliente · receber e assistir ao vídeo**. Configure endereço `0.0.0.0`, porta base `5000` e transporte **RTP/UDP**. Clique em **START VIDEO RECEIVER**.
+2. No servidor, abra `http://192.168.1.10:8080` e selecione **Servidor · enviar vídeo para outra máquina**. Carregue e selecione os vídeos. Informe destino `192.168.1.20`, porta `5000` e o mesmo transporte **RTP/UDP**.
+3. Em **Conexão com o cliente**, informe `http://192.168.1.20:8080` e o token **do cliente**. A coordenação prepara o decodificador antes do envio, identifica cada vídeo e recupera as métricas RX após cada sessão. Não use `localhost` para outra máquina.
+4. Escolha **Real-time** para assistir enquanto transmite. **Preserve Source** mantém os codecs originais; **Controlled Bitrate** permite configurar bitrate, resolução, FPS, intervalo de quadros-chave, preset e baixa latência. Os perfis 360p/720p/1080p são pontos de partida editáveis. O áudio pode ser incluído ou removido do envio. Clique em **Run Selected Videos / START EXPERIMENT**.
+5. No cliente, acompanhe o player, vazão, bytes, pacotes, perda e jitter e os gráficos das últimas 120 amostras. **Ver experimento e exportar métricas** abre os resultados completos e CSV/JSON. No servidor, os gráficos TX atualizam durante o envio; RX remoto aparece após finalizar cada vídeo coordenado.
+
+Para vários vídeos concorrentes, configure a quantidade de streams no cliente; as portas são `base`, `base+2`, `base+4` etc. A faixa publicada e o firewall devem incluir todas essas portas. Permita também 8080/TCP para interface e coordenação. O destino UDP é o IP do host cliente, não o IP interno do container.
+
+Em UDP simples, perda e jitter ficam **N/A**; RTP fornece sequências e timestamps para essas métricas. O bitrate configurado é um alvo do encoder; a vazão medida inclui o payload de transporte e pode variar. Não há medição de atraso unidirecional sem sincronização de relógios.
+
+O player exibe quadros decodificados do fluxo recebido, até 8 fps, sem reprodução de áudio. Isso não limita o FPS nem remove o áudio do tráfego transmitido. **Pausar** congela somente a visualização; **Play** retorna ao vivo; **Tela cheia** amplia o player. **STOP EXPERIMENT** interrompe o envio; **STOP VIDEO RECEIVER** encerra a escuta no cliente. Os resultados persistem nos volumes.
+
+Validação desta alteração: 77 testes backend passaram; o frontend compilou e os testes de navegador verificaram Play/Pausar e uma transmissão RTP real entre dois containers independentes, usando uma porta UDP publicada no host. O fluxo controlado usou 640×360, 25 FPS, quadros-chave a cada 25 frames e áudio; vídeo recebido, métricas TX/RX e exportação CSV foram verificados. Essa validação usa a rede Docker no mesmo host; a rede física entre dois computadores deve usar os IPs e portas descritos acima.
+
+Para construir esta versão a partir do código atualizado: `docker build -t lancemetrics:video-network .`. A imagem local não atualiza automaticamente a tag publicada no Docker Hub.
+
+## Autenticação opcional
+
+Por padrão, `LANCE_AUTH_ENABLED=false`: interface, API, WebSockets e coordenação de vídeo funcionam sem token. Abra `http://localhost:8081` no servidor e `http://localhost:8082` no cliente. A URL entre containers continua sendo `http://lance-cliente:8080`, com o campo de token vazio.
+
+Para exigir autenticação, use `-e LANCE_AUTH_ENABLED=true` no `docker run`, ou defina essa variável antes de recriar o serviço no Compose. Na execução nativa, use `LANCE_AUTH_ENABLED=true ./start.sh`. O cliente remoto define se exige token: um servidor autenticado também pode enviar a um cliente sem autenticação. Em modo sem autenticação, quem alcançar a aplicação pode controlar e excluir experimentos.

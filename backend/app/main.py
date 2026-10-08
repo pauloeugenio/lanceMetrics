@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI,HTTPException,UploadFile,File,WebSocket,WebSocketDisconnect,Request,BackgroundTasks
 from fastapi.responses import Response,FileResponse
 from fastapi.staticfiles import StaticFiles
-from .core import ROOT,VERSION
+from .core import ROOT,VERSION,AUTH_ENABLED
 from .database import init_db,Session,Experiment,StoredProfile,serialize
 from .schemas import TestConfig,ServerConfig,Profile
 from pydantic import BaseModel,Field,field_validator
@@ -37,7 +37,7 @@ async def lifespan(app):
 app=FastAPI(title='LANCE Metrics',version=VERSION,lifespan=lifespan)
 @app.middleware('http')
 async def access(request:Request,call_next):
-    if request.url.path.startswith('/api/') and request.headers.get('Authorization')!='Bearer '+TOKEN:
+    if AUTH_ENABLED and request.url.path.startswith('/api/') and request.url.path!='/api/auth/config' and request.headers.get('Authorization')!='Bearer '+TOKEN:
         return Response('Access token required',status_code=401)
     if request.method not in ('GET','HEAD','OPTIONS'):
         if getattr(app.state,'shutdown_requested',False) and request.url.path!='/api/system/stop':
@@ -60,6 +60,8 @@ async def application_stop(background:BackgroundTasks):
         app.state.shutdown_requested=True
         background.add_task(shutdown_application)
     return {'status':'STOPPING','message':'Web service is stopping. Restart it from lanceMetrics or start.sh.'}
+@app.get('/api/auth/config')
+def auth_config():return {'auth_enabled':AUTH_ENABLED}
 @app.get('/health')
 def health(): return {'status':'ok','version':VERSION}
 @app.get('/api/status')
@@ -163,8 +165,9 @@ async def websocket(ws:WebSocket,id:int):
     await ws.accept()
     # First message authenticates: avoids putting credentials in URLs/logs.
     try:
-        auth=await asyncio.wait_for(ws.receive_json(),10)
-        if not secrets.compare_digest(str(auth.get('token','')),TOKEN): await ws.close(1008); return
+        if AUTH_ENABLED:
+            auth=await asyncio.wait_for(ws.receive_json(),10)
+            if not secrets.compare_digest(str(auth.get('token','')),TOKEN): await ws.close(1008); return
         if not experiment_data(id): await ws.close(1008); return
         queue=asyncio.Queue(maxsize=100); runner.listeners.setdefault(id,set()).add(queue)
         await ws.send_json({'type':'snapshot','experiment':experiment_data(id)})
@@ -179,8 +182,9 @@ async def websocket(ws:WebSocket,id:int):
 async def server_ws(ws:WebSocket):
     await ws.accept()
     try:
-        auth=await asyncio.wait_for(ws.receive_json(),10)
-        if not secrets.compare_digest(str(auth.get('token','')),TOKEN): await ws.close(1008); return
+        if AUTH_ENABLED:
+            auth=await asyncio.wait_for(ws.receive_json(),10)
+            if not secrets.compare_digest(str(auth.get('token','')),TOKEN): await ws.close(1008); return
         previous=None
         while not getattr(app.state,'shutdown_requested',False):
             current=json.dumps(runner.server)
@@ -188,7 +192,7 @@ async def server_ws(ws:WebSocket):
             else: await ws.send_json({'heartbeat':True})
             await asyncio.sleep(2)
     except (WebSocketDisconnect,RuntimeError,asyncio.TimeoutError): pass
-app.include_router(video_router(video,video_receiver,TOKEN))
+app.include_router(video_router(video,video_receiver,TOKEN,AUTH_ENABLED))
 build=ROOT/'frontend/dist'
 if build.exists():
     app.mount('/assets',StaticFiles(directory=build/'assets'),name='assets')

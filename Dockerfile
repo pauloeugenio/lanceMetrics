@@ -10,7 +10,7 @@ RUN npm run build
 FROM node:22-bookworm-slim AS node-runtime
 FROM python:3.12-slim-bookworm AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1 LANCE_BIND=0.0.0.0 LANCE_PORT=8080 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 LANCE_AUTH_ENABLED=false LANCE_BIND=0.0.0.0 LANCE_PORT=8080 \
     PATH="/app/.venv/bin:${PATH}"
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends bash iperf3 ffmpeg tini ca-certificates \
@@ -38,7 +38,7 @@ RUN sed -i 's/\r$//' lanceMetrics install.sh start.sh stop.sh docker-entrypoint.
 USER lance
 # Validate imports/tools on each target architecture without baking in a token/database.
 RUN ./lanceMetrics diagnostics
-EXPOSE 8080/tcp 5201/tcp 5201/udp 5000/udp
+EXPOSE 8080/tcp 5201/tcp 5201/udp 5000-5018/udp
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
     CMD python -c "import os,urllib.request; urllib.request.urlopen('http://127.0.0.1:'+os.environ.get('LANCE_PORT','8080')+'/health',timeout=3)"
 ENTRYPOINT ["/usr/bin/tini", "--", "/app/docker-entrypoint.sh"]

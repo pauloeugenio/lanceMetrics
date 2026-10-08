@@ -33,6 +33,46 @@ def test_commands_preserve_and_controlled():
     args=FFmpegCommandBuilder.sender(c.model_copy(update={'encoding_mode':'controlled','target_mbps':12.345,'transport':'rtp','playback':'maximum'}),'/tmp/v',1234)
     assert '-re' not in args and args[args.index('-b:v')+1]=='12345000' and 'rtp_mpegts' in args and 'zerolatency' in args
 
+@pytest.mark.parametrize('changes',[
+    {'encoding_mode':'preserve','resolution':'1280x720'},
+    {'encoding_mode':'preserve','output_fps':30},
+    {'encoding_mode':'controlled','output_fps':0},
+    {'encoding_mode':'controlled','output_fps':121},
+    {'encoding_mode':'controlled','resolution':'720;touch /tmp/x'},
+    {'encoding_mode':'controlled','keyframe_frames':601},
+])
+def test_invalid_output_configuration(changes):
+    with pytest.raises(ValidationError):VideoConfig(target='localhost',video_ids=[uuid.uuid4()],**changes)
+
+def test_controlled_output_size_fps_keyframes_and_audio():
+    c=VideoConfig(target='localhost',video_ids=[uuid.uuid4()],encoding_mode='controlled',
+                  resolution='640x360',output_fps=25,keyframe_frames=25,include_audio=False)
+    args=FFmpegCommandBuilder.sender(c,'/tmp/video.mp4',1234)
+    assert '-an' in args and '0:a?' not in args
+    assert args[args.index('-r')+1]=='25' and args[args.index('-g')+1]=='25'
+    assert 'scale=640:360:' in args[args.index('-vf')+1] and 'pad=640:360:' in args[args.index('-vf')+1]
+
+@pytest.mark.skipif(not tool_path('ffmpeg') or not tool_path('ffprobe'),reason='FFmpeg/ffprobe not installed')
+def test_preserve_avi_with_missing_presentation_timestamps(tmp_path):
+    source=tmp_path/'missing_pts.avi';output=tmp_path/'remuxed.ts'
+    subprocess.run([tool_path('ffmpeg'),'-v','error','-f','lavfi','-i','testsrc2=size=160x120:rate=30',
+                    '-t','2','-c:v','mpeg4','-bf','2',str(source)],check=True,timeout=30,env=tool_env())
+    probe=subprocess.run([tool_path('ffprobe'),'-v','error','-select_streams','v:0','-show_packets',
+                          '-read_intervals','%+#1','-show_entries','packet=pts,dts','-of','json',str(source)],
+                         capture_output=True,text=True,check=True,timeout=15,env=tool_env('ffprobe'))
+    packet=json.loads(probe.stdout)['packets'][0]
+    assert 'dts' in packet and 'pts' not in packet
+    config=VideoConfig(target='localhost',video_ids=[uuid.uuid4()],playback='maximum')
+    args=FFmpegCommandBuilder.sender(config,source,1234)
+    args[-1]=str(output)
+    remux=subprocess.run(args,capture_output=True,timeout=30,env=tool_env())
+    assert remux.returncode==0,remux.stderr.decode()
+    decoded=subprocess.run([tool_path('ffmpeg'),'-v','error','-i',str(output),'-vf','fps=8',
+                            '-frames:v','1','-c:v','mjpeg','-threads','1','-f','image2pipe','pipe:1'],
+                           capture_output=True,timeout=30,env=tool_env())
+    assert decoded.returncode==0,decoded.stderr.decode()
+    assert decoded.stdout.startswith(b'\xff\xd8') and decoded.stdout.endswith(b'\xff\xd9')
+
 def rtp(seq,stamp=0,payload=b'\x47'*188):return struct.pack('!BBHII',128,33,seq,stamp,7)+payload
 
 def test_udp_observability_never_fakes_loss():
@@ -155,7 +195,8 @@ def test_real_video_flow_and_preview(tmp_path,transport,mode):
         assert not list((ROOT/'run').glob('ffmpeg_*.json'))
 
 @pytest.mark.skipif(not tool_path('ffmpeg') or not tool_path('ffprobe'),reason='FFmpeg/ffprobe not installed')
-def test_two_instances_peer_preparation_controlled_and_stop(tmp_path):
+@pytest.mark.parametrize('auth_enabled',[True,False])
+def test_two_instances_peer_preparation_controlled_and_stop(tmp_path,auth_enabled):
     import httpx
     source=tmp_path/'peer_source.mp4'
     subprocess.run([tool_path('ffmpeg'),'-v','error','-f','lavfi','-i','testsrc2=size=160x120:rate=15','-t','3','-c:v','libx264','-g','15','-preset','ultrafast',str(source)],check=True,timeout=30,env=tool_env())
@@ -166,7 +207,7 @@ def test_two_instances_peer_preparation_controlled_and_stop(tmp_path):
         for name in ('sender','receiver'):
             root=tmp_path/name;root.mkdir();port=tcp_port();roots.append(root)
             log=(root/'backend.log').open('wb')
-            p=subprocess.Popen([sys.executable,'-m','uvicorn','backend.app.main:app','--host','127.0.0.1','--port',str(port)],env={**os.environ,'LANCE_ROOT':str(root)},stdout=log,stderr=log);log.close();processes.append(p)
+            p=subprocess.Popen([sys.executable,'-m','uvicorn','backend.app.main:app','--host','127.0.0.1','--port',str(port)],env={**os.environ,'LANCE_ROOT':str(root),'LANCE_AUTH_ENABLED':str(auth_enabled).lower()},stdout=log,stderr=log);log.close();processes.append(p)
             client=httpx.Client(base_url=f'http://127.0.0.1:{port}',timeout=20);clients.append(client)
             for _ in range(100):
                 try:
@@ -174,13 +215,14 @@ def test_two_instances_peer_preparation_controlled_and_stop(tmp_path):
                 except httpx.HTTPError:pass
                 time.sleep(.1)
             else:pytest.fail((root/'backend.log').read_text())
-            client.headers['Authorization']='Bearer '+(root/'run/access.token').read_text().strip()
+            if auth_enabled:client.headers['Authorization']='Bearer '+(root/'run/access.token').read_text().strip()
         sender,receiver=clients;port=free_port()
         assert receiver.post('/api/video/receiver/start',json={'address':'127.0.0.1','base_port':port}).status_code==200
         assets=[]
         for name in ('first.mp4','second.mp4'):
             response=sender.post('/api/video/library/upload',params={'filename':name},headers={'Content-Type':'video/mp4'},content=source.read_bytes());assert response.status_code==200,response.text;assets.append(response.json())
         config={'target':'127.0.0.1','base_port':port,'video_ids':[a['id'] for a in assets],'encoding_mode':'controlled','target_mbps':1,'peer_url':str(receiver.base_url).rstrip('/'),'peer_token':(roots[1]/'run/access.token').read_text().strip()}
+        if not auth_enabled:config.pop('peer_token')
         response=sender.post('/api/video/experiments/start',json=config);assert response.status_code==200,response.text;id=response.json()['id']
         assert 'peer_token' not in response.text
         for _ in range(200):

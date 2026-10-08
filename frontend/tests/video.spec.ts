@@ -11,7 +11,7 @@ test('20-file video upload, ordered queue, concurrent real streaming and browser
  try{
   await login(page);await page.getByLabel('Role',{exact:true}).selectOption('receiver');let port=await udpPort();if(port>65532)port=5000;
   await page.getByLabel('Receiver Base Port',{exact:true}).fill(String(port));await page.getByLabel('Concurrent receiver streams',{exact:true}).fill('2');await page.getByRole('button',{name:'START VIDEO RECEIVER',exact:true}).click();await expect(page.getByText('WAITING_FOR_STREAM',{exact:true})).toBeVisible();
-   await login(second);const prefix='Browser video validation '+Date.now();const buffer=fs.readFileSync(source);const files=Array.from({length:20},(_,i)=>({name:`${prefix}_${String(i+1).padStart(2,'0')}.mp4`,mimeType:'video/mp4',buffer}));
+   await login(second);await second.getByLabel('Role',{exact:true}).selectOption('sender');const prefix='Browser video validation '+Date.now();const buffer=fs.readFileSync(source);const files=Array.from({length:20},(_,i)=>({name:`${prefix}_${String(i+1).padStart(2,'0')}.mp4`,mimeType:'video/mp4',buffer}));
   await second.getByLabel('SELECT VIDEOS',{exact:true}).setInputFiles(files);
   await expect(second.getByText('20 vídeos selecionados',{exact:true})).toBeVisible({timeout:60000});await expect(second.locator('[aria-label="Uploading Videos"]')).toContainText('Overall: 100%');
   await expect(second.getByLabel(`Selecionar vídeo ${files[0].name}`,{exact:true})).toBeChecked();await expect(second.getByLabel(`Executar ${files[19].name}`,{exact:true})).toBeChecked();

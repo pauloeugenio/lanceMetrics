@@ -9,6 +9,7 @@ services:
     security_opt:
       - no-new-privileges:true
     environment:
+      LANCE_AUTH_ENABLED: ${LANCE_AUTH_ENABLED:-false}
       LANCE_BIND: 0.0.0.0
       LANCE_PORT: "8080"
       LANCE_VIDEO_MAX_BYTES: ${LANCE_VIDEO_MAX_BYTES:-2147483648}
@@ -17,7 +18,7 @@ services:
       - "8080:8080/tcp"
       - "5201:5201/tcp"
       - "5201:5201/udp"
-      - "5000:5000/udp"
+      - "${LANCE_VIDEO_PORT_RANGE:-5000-5018}:${LANCE_VIDEO_PORT_RANGE:-5000-5018}/udp"
     volumes:
       - lance-data:/app/data
       - lance-logs:/app/logs

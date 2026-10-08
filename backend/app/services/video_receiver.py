@@ -17,7 +17,8 @@ class FFmpegVideoReceiver:
 
     def snapshot(self):
         return {'status':self.status,'config':self.config.model_dump() if self.config else None,'error':self.error,
-                'streams':[{'port':port,'sender_ip':v.get('sender_ip'),'session':v['values'],'preview':self.preview.stats.get(v['key'],{}),'preview_key':v['key']} for port,v in self.live.items()]}
+                'streams':[{'port':port,'experiment_id':v['id'],'sender_ip':v.get('sender_ip'),'session':v['values'],
+                            'measurements':v['rows'][-120:],'preview':self.preview.stats.get(v['key'],{}),'preview_key':v['key']} for port,v in self.live.items()]}
 
     async def start(self,c):
         if self.sockets:raise ValueError('Video receiver already listening; stop it before changing ports')
