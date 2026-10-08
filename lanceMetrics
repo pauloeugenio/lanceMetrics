@@ -1,10 +1,36 @@
 #!/usr/bin/env bash
-set -e
-cd -- "$(dirname -- "$0")"
-if [ -x .venv/bin/python ]; then exec .venv/bin/python -m backend.app.terminal "$@"; fi
-if ! command -v python3 >/dev/null; then
-  echo 'Python is missing. Running the dependency installer.'
-  bash ./install.sh
-  exec .venv/bin/python -m backend.app.terminal "$@"
-fi
-exec python3 -m backend.app.terminal "$@"
+# Autor: Paulo Eugenio da Costa Filho
+# Email: pauloeugenio@hotmail.com.br
+# GitHub: https://github.com/pauloeugenio
+set -euo pipefail
+MANAGER="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/docker/manage.sh"
+if (($#)); then exec bash "$MANAGER" "$@"; fi
+
+trap 'printf "\n"' INT
+while true; do
+    printf '\n========================================\n'
+    printf '          LANCE Metrics · Docker\n'
+    printf '========================================\n'
+    printf ' [1] Iniciar LANCE Metrics\n'
+    printf ' [2] Parar LANCE Metrics\n'
+    printf ' [3] Ver logs (Ctrl+C para voltar)\n'
+    printf ' [4] Teste All in one\n'
+    printf ' [5] Parar Teste All in one\n'
+    printf ' [0] Sair (mantém a aplicação rodando)\n\n'
+    if ! read -r -p 'Escolha uma opção: ' choice; then printf '\n'; break; fi
+    case "$choice" in
+        1) action=start ;;
+        2) action=stop ;;
+        3) action=logs ;;
+        4) action=all-start ;;
+        5) action=all-stop ;;
+        0) break ;;
+        *) printf '\nOpção inválida. Escolha de 0 a 5.\n'; continue ;;
+    esac
+    if bash "$MANAGER" "$action"; then :; else
+        result=$?
+        if ((result != 130)); then
+            printf '\nNão foi possível concluir a operação. Confira a mensagem acima.\n'
+        fi
+    fi
+done

@@ -1,0 +1,12 @@
+# Local installation, user data and generated assets.
+bare-metal/.venv/
+bare-metal/data/
+bare-metal/logs/
+bare-metal/run/
+bare-metal/frontend/node_modules/
+bare-metal/frontend/dist/
+bare-metal/frontend/test-results/
+bare-metal/frontend/playwright-report/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/

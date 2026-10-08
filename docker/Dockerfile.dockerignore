@@ -1,0 +1,23 @@
+# Root build context, only application source and container entrypoint.
+**
+!docker/
+!docker/Dockerfile
+!docker/docker-entrypoint.sh
+!bare-metal/
+!bare-metal/backend/
+!bare-metal/backend/**
+!bare-metal/frontend/
+!bare-metal/frontend/**
+!bare-metal/examples/
+!bare-metal/examples/**
+!bare-metal/install.sh
+!bare-metal/start.sh
+!bare-metal/stop.sh
+!bare-metal/lanceMetrics
+**/__pycache__/**
+**/*.pyc
+**/.pytest_cache/**
+bare-metal/frontend/node_modules/**
+bare-metal/frontend/dist/**
+bare-metal/frontend/test-results/**
+bare-metal/frontend/playwright-report/**

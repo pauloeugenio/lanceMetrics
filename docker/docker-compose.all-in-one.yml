@@ -1,0 +1,47 @@
+x-application: &application
+  image: ${LANCE_IMAGE:-lancemetrics:local}
+  build:
+    context: ..
+    dockerfile: docker/Dockerfile
+  restart: "no"
+  stop_grace_period: 60s
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  environment:
+    LANCE_AUTH_ENABLED: ${LANCE_AUTH_ENABLED:-false}
+    LANCE_BIND: 0.0.0.0
+    LANCE_PORT: "8080"
+    LANCE_VIDEO_MAX_BYTES: ${LANCE_VIDEO_MAX_BYTES:-2147483648}
+    LANCE_VIDEO_LIBRARY_BYTES: ${LANCE_VIDEO_LIBRARY_BYTES:-53687091200}
+
+services:
+  lance-servidor:
+    <<: *application
+    ports:
+      - "${LANCE_ALL_SERVER_HTTP_PORT:-8081}:8080/tcp"
+      - "${LANCE_ALL_SERVER_IPERF_PORT:-5203}:5201/tcp"
+      - "${LANCE_ALL_SERVER_IPERF_PORT:-5203}:5201/udp"
+      - "${LANCE_ALL_SERVER_VIDEO_PORTS:-7000-7018}:7000-7018/udp"
+    volumes:
+      - server-data:/app/data
+      - server-logs:/app/logs
+      - server-run:/app/run
+  lance-cliente:
+    <<: *application
+    ports:
+      - "${LANCE_ALL_CLIENT_HTTP_PORT:-8082}:8080/tcp"
+      - "${LANCE_ALL_CLIENT_IPERF_PORT:-5204}:5201/tcp"
+      - "${LANCE_ALL_CLIENT_IPERF_PORT:-5204}:5201/udp"
+      - "${LANCE_ALL_CLIENT_VIDEO_PORTS:-6000-6018}:6000-6018/udp"
+    volumes:
+      - client-data:/app/data
+      - client-logs:/app/logs
+      - client-run:/app/run
+
+volumes:
+  server-data:
+  server-logs:
+  server-run:
+  client-data:
+  client-logs:
+  client-run:

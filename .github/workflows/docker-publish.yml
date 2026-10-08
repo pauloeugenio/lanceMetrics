@@ -25,6 +25,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - name: Validate deployment launchers
+        run: |
+          for script in lanceMetrics bare-metal/*.sh bare-metal/lanceMetrics docker/*.sh; do bash -n "$script"; done
+          python3 -m unittest discover -s docker/tests -v
       - uses: docker/setup-qemu-action@v4
         with:
           platforms: arm64
@@ -33,6 +37,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
+          file: docker/Dockerfile
           platforms: linux/amd64
           load: true
           push: false
@@ -53,7 +58,7 @@ jobs:
           done
           docker exec lance-ci python -c "import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=2).status == 200; assert b'<html' in urllib.request.urlopen('http://127.0.0.1:8080/').read().lower()"
           docker exec lance-ci ./lanceMetrics diagnostics
-          docker exec lance-ci python -m pytest backend/tests -q -p no:cacheprovider
+          docker run --rm --entrypoint python -v "$PWD:/workspace:ro" -w /workspace/bare-metal lancemetrics:ci -m pytest backend/tests -q -p no:cacheprovider
           docker exec lance-ci ./stop.sh
           timeout 60 docker wait lance-ci
           test "$(docker inspect -f '{{.State.ExitCode}}' lance-ci)" = 0
@@ -78,6 +83,7 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
+          file: docker/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
